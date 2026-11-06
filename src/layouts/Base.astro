@@ -1,0 +1,64 @@
+---
+import { SITE_NAME, FOOTER_NAME, COPY, type Lang } from '../config/site';
+import '../styles/global.css';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+}
+const { lang, title, description } = Astro.props;
+const t = COPY[lang];
+// BASE_URL has no trailing slash ("/porto"), so normalize before joining.
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+// Language switcher targets: EN lives at the root, ID under /id/.
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Runs before first paint: gates the reveal animations so content
+         is never hidden when JS is unavailable. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href={lang === 'en' ? base : `${base}id/`}>{SITE_NAME}</a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="#projects">{t.navProjects}</a>
+          <a href="#about">{t.navAbout}</a>
+          <a href="#contact">{t.navContact}</a>
+        </nav>
+        <div class="lang-switch" aria-label="Language">
+          <a href={base} class={lang === 'en' ? 'active' : ''}>EN</a>
+          <span aria-hidden="true">|</span>
+          <a href={`${base}id/`} class={lang === 'id' ? 'active' : ''}>ID</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>© {year} {FOOTER_NAME}. {t.footerRights}</p>
+      </div>
+    </footer>
+  </body>
+</html>

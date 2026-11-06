@@ -1,0 +1,20 @@
+{
+  "name": "porto",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/watermark.mjs",
+    "dev": "astro dev",
+    "prebuild": "node scripts/watermark.mjs",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.4.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.3"
+  }
+}

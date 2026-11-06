@@ -1,0 +1,357 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Wave from './Wave.astro';
+import { SITE_NAME, TAGLINE, PROJECTS_HEADING, COPY, CONTACT, type Lang } from '../config/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = COPY[lang];
+// Base path for files under public/ (custom domain: "/", project site: "/porto/").
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const imageSrc = (image: string) =>
+  image.startsWith('http') ? image : `${base}${image.replace(/^\/+/, '')}`;
+const projects = (await getCollection('projects')).sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+// Contact links render only for fields set in CONTACT (see site.ts).
+const contactLinks = [
+  CONTACT.email ? { label: 'Email', href: `mailto:${CONTACT.email}` } : null,
+  CONTACT.github ? { label: 'GitHub', href: CONTACT.github } : null,
+  CONTACT.linkedin ? { label: 'LinkedIn', href: CONTACT.linkedin } : null,
+  CONTACT.whatsapp ? { label: 'WhatsApp', href: CONTACT.whatsapp } : null,
+].filter((x): x is { label: string; href: string } => x !== null);
+---
+<Base
+  lang={lang}
+  title={`${SITE_NAME} — ${TAGLINE[lang]}`}
+  description={TAGLINE[lang]}
+>
+  <!-- Hero: pearl ground, solid dark green type. No gradient. -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <p class="eyebrow reveal" style="--d: 0s">{t.heroEyebrow}</p>
+      <h1 class="reveal" style="--d: 0.1s">{TAGLINE[lang]}</h1>
+      <div class="hero-cta reveal" style="--d: 0.2s">
+        <a class="btn btn-solid" href="#projects">{t.heroCtaProjects}</a>
+        <a class="btn btn-outline" href="#contact">{t.heroCtaContact}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pearl → dark green, over a wave. -->
+  <div class="wave-wrap wave-on-pearl"><Wave fill="var(--green)" /></div>
+  <section class="section section-green" id="projects">
+    <div class="wrap">
+      <h2 class="reveal">{PROJECTS_HEADING[lang]}</h2>
+    </div>
+    <div
+      class="carousel reveal"
+      data-carousel
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={t.navProjects}
+    >
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          {
+            projects.map((p, i) => (
+              <article
+                class={`card slide${i === 0 ? ' active' : ''}`}
+                data-slide
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} / ${projects.length}`}
+                aria-hidden={i === 0 ? 'false' : 'true'}
+              >
+                {p.data.image ? (
+                  <div class="slide-media">
+                    <img
+                      src={imageSrc(p.data.image)}
+                      alt={lang === 'en' ? p.data.title : p.data.titleId}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="image-mark" aria-hidden="true">
+                      © Alzam A.
+                    </span>
+                  </div>
+                ) : (
+                  <div class="card-mark" aria-hidden="true">
+                    {p.data.title.charAt(0)}
+                  </div>
+                )}
+                <h3>{lang === 'en' ? p.data.title : p.data.titleId}</h3>
+                <p>{lang === 'en' ? p.data.description : p.data.descriptionId}</p>
+                <div class="tags">
+                  {p.data.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+                <div class="card-links">
+                  {p.data.live && (
+                    <a href={p.data.live} target="_blank" rel="noreferrer">
+                      {lang === 'en' ? 'Visit site' : 'Kunjungi situs'}
+                    </a>
+                  )}
+                  {p.data.repo && (
+                    <a href={p.data.repo} target="_blank" rel="noreferrer">
+                      {lang === 'en' ? 'Repository' : 'Repositori'}
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+      {
+        projects.length > 1 && (
+          <div class="carousel-controls">
+            <button
+              class="carousel-arrow"
+              data-prev
+              aria-label={lang === 'en' ? 'Previous project' : 'Proyek sebelumnya'}
+            >
+              <span aria-hidden="true">‹</span>
+            </button>
+            <div class="carousel-dots" aria-label={lang === 'en' ? 'Choose project' : 'Pilih proyek'}>
+              {projects.map((p, i) => (
+                <button
+                  class="carousel-dot"
+                  data-dot={i}
+                  aria-label={`${lang === 'en' ? 'Go to project' : 'Ke proyek'} ${lang === 'en' ? p.data.title : p.data.titleId}`}
+                  aria-current={i === 0 ? 'true' : 'false'}
+                />
+              ))}
+            </div>
+            <button
+              class="carousel-arrow"
+              data-next
+              aria-label={lang === 'en' ? 'Next project' : 'Proyek berikutnya'}
+            >
+              <span aria-hidden="true">›</span>
+            </button>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Dark green → pearl, over a wave. -->
+  <div class="wave-wrap wave-on-green"><Wave fill="var(--pearl)" /></div>
+  <section class="section section-pearl" id="about">
+    <div class="wrap wrap-narrow">
+      <h2 class="reveal">{t.aboutHeading}</h2>
+      {t.aboutBody.map((para, i) => (
+        <p class="reveal" style={`--d: ${i * 0.1}s`}>
+          {para}
+        </p>
+      ))}
+    </div>
+  </section>
+
+  <!-- Pearl → dark green, over a wave. -->
+  <div class="wave-wrap wave-on-pearl"><Wave fill="var(--green)" /></div>
+  <section class="section section-green" id="contact">
+    <div class="wrap wrap-narrow">
+      <h2 class="reveal">{t.contactHeading}</h2>
+      <p class="reveal" style="--d: 0.1s">{t.contactBody}</p>
+      {
+        contactLinks.length > 0 ? (
+          <div class="contact-links reveal" style="--d: 0.2s">
+            {contactLinks.map((c) => (
+              <a class="btn btn-pearl" href={c.href} target="_blank" rel="noreferrer">
+                {c.label}
+              </a>
+            ))}
+          </div>
+        ) : (
+          /* Filled in later: see CONTACT in src/config/site.ts. */
+          <p class="contact-empty reveal" style="--d: 0.2s">{t.contactEmpty}</p>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Reveal on scroll: text and content fade + rise as they enter view.
+     Backgrounds and waves are excluded (they never get .reveal). */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const ro = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            ro.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
+    );
+    revealEls.forEach((el) => ro.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in-view'));
+  }
+
+  /* Projects carousel: one slide centered and full-size, neighbors
+     peeking at reduced scale. Auto-slides every 3s, but only once the
+     section's images have loaded (2.5s fallback) AND the section is
+     on screen. Pauses on hover, focus, hidden tab, or reduced motion. */
+  const carousel = document.querySelector('[data-carousel]');
+  if (carousel) {
+    const viewport = carousel.querySelector('.carousel-viewport');
+    const track = carousel.querySelector('.carousel-track');
+    const slides = [...carousel.querySelectorAll('[data-slide]')];
+    const prevBtn = carousel.querySelector('[data-prev]');
+    const nextBtn = carousel.querySelector('[data-next]');
+    const dots = [...carousel.querySelectorAll('[data-dot]')];
+    let index = 0;
+    let timer = null;
+    let ready = false;
+    let visible = false;
+    let paused = false;
+    carousel.classList.add('is-js');
+
+    const step = () => {
+      const first = slides[0];
+      if (!first) return 0;
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      return first.offsetWidth + gap;
+    };
+    const layout = () => {
+      if (!viewport || !track) return;
+      const slideWidth = slides[0]?.offsetWidth || 0;
+      const off = viewport.clientWidth / 2 - slideWidth / 2 - index * step();
+      track.style.transform = `translateX(${off}px)`;
+    };
+    const setActive = (i) => {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((slide, k) => {
+        const active = k === index;
+        slide.classList.toggle('active', active);
+        slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        slide.querySelectorAll('a').forEach((a) =>
+          a.setAttribute('tabindex', active ? '0' : '-1'),
+        );
+      });
+      dots.forEach((dot, k) => {
+        dot.classList.toggle('active', k === index);
+        dot.setAttribute('aria-current', k === index ? 'true' : 'false');
+      });
+      layout();
+    };
+    const schedule = () => {
+      clearTimeout(timer);
+      if (slides.length < 2 || reduceMotion || paused || !ready || !visible) return;
+      timer = setTimeout(() => {
+        setActive(index + 1);
+        schedule();
+      }, 3000);
+    };
+    const tryStart = () => schedule();
+
+    // Gate 1: images loaded (errors count as done; 2.5s fallback).
+    const imgs = [...carousel.querySelectorAll('img')];
+    const waitImgs = Promise.all(
+      imgs.map(
+        (img) =>
+          img.complete ||
+          new Promise((resolve) => {
+            img.addEventListener('load', resolve, { once: true });
+            img.addEventListener('error', resolve, { once: true });
+          }),
+      ),
+    );
+    Promise.race([waitImgs, new Promise((resolve) => setTimeout(resolve, 2500))]).then(
+      () => {
+        ready = true;
+        tryStart();
+      },
+    );
+
+    // Gate 2: section on screen.
+    const so = new IntersectionObserver(
+      (entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible) tryStart();
+        else clearTimeout(timer);
+      },
+      { threshold: 0.2 },
+    );
+    so.observe(carousel);
+
+    carousel.addEventListener('mouseenter', () => {
+      paused = true;
+      clearTimeout(timer);
+    });
+    carousel.addEventListener('mouseleave', () => {
+      paused = false;
+      tryStart();
+    });
+    carousel.addEventListener('focusin', () => {
+      paused = true;
+      clearTimeout(timer);
+    });
+    carousel.addEventListener('focusout', () => {
+      paused = false;
+      tryStart();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) clearTimeout(timer);
+      else tryStart();
+    });
+
+    prevBtn?.addEventListener('click', () => {
+      setActive(index - 1);
+      schedule();
+    });
+    nextBtn?.addEventListener('click', () => {
+      setActive(index + 1);
+      schedule();
+    });
+    dots.forEach((dot, k) =>
+      dot.addEventListener('click', () => {
+        setActive(k);
+        schedule();
+      }),
+    );
+    carousel.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        setActive(index - 1);
+        schedule();
+      }
+      if (event.key === 'ArrowRight') {
+        setActive(index + 1);
+        schedule();
+      }
+    });
+
+    // Swipe: a horizontal drag over 50px moves one slide.
+    let startX = null;
+    viewport?.addEventListener('pointerdown', (event) => {
+      startX = event.clientX;
+    });
+    viewport?.addEventListener('pointerup', (event) => {
+      if (startX === null) return;
+      const dx = event.clientX - startX;
+      startX = null;
+      if (Math.abs(dx) > 50) {
+        setActive(index + (dx < 0 ? 1 : -1));
+        schedule();
+      }
+    });
+
+    window.addEventListener('resize', layout);
+    setActive(0);
+  }
+</script>

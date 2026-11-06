@@ -1,0 +1,33 @@
+---
+// Two-tone divider: a solid SVG wave, no gradients.
+// Usage: wrap it in a div whose background is the PREVIOUS section's color
+// and pass the NEXT section's color as `fill`. The wave curve is the
+// boundary, so pearl flows into green (or green back into pearl) with no
+// hard line and no gradient anywhere.
+interface Props {
+  fill: string;
+}
+const { fill } = Astro.props;
+---
+<svg
+  class="wave wave-secondary"
+  viewBox="0 0 1440 90"
+  preserveAspectRatio="none"
+  aria-hidden="true"
+>
+  <path
+    d="M0,28 C240,70 480,8 720,24 C960,54 1200,70 1440,28 L1440,90 L0,90 Z"
+    fill="var(--wave-muted)"
+  />
+</svg>
+<svg
+  class="wave"
+  viewBox="0 0 1440 90"
+  preserveAspectRatio="none"
+  aria-hidden="true"
+>
+  <path
+    d="M0,48 C240,90 480,0 720,36 C960,72 1200,90 1440,48 L1440,90 L0,90 Z"
+    fill={fill}
+  />
+</svg>

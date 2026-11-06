@@ -1,0 +1,568 @@
+/* Porto — pearl white + solid dark green, luxurious but clean.
+   Design rule: no gradients on menus or buttons. Buttons are solid
+   colors throughout; the only visual flourish is the SVG wave divider
+   between two-tone sections (also solid, no gradient). */
+
+:root {
+  --pearl: #faf7f2;
+  --pearl-2: #f1ebdf;
+  --card: #fffdf8;
+  --green: #0c3b2e;
+  --green-2: #082a20;
+  --green-light: #17523f;
+  --ink: #1c2420;
+  --muted: #5d6c63;
+  --line: #e3ddcf;
+  --tag-bg: #e9efea;
+  --wave-muted: #a7b2aa;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  background: var(--pearl);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--green);
+  color: var(--pearl);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.wrap-narrow {
+  max-width: 720px;
+}
+
+/* ── Header: pearl, hairline border, solid colors only ── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--pearl);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+.logo {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--green);
+  margin-right: auto;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.site-nav a {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.site-nav a:hover {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.lang-switch {
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.lang-switch a.active {
+  color: var(--green);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ── Hero: pearl ground, solid dark green type ── */
+.hero {
+  background: var(--pearl);
+  padding: 5.5rem 0 4.5rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.08;
+  color: var(--green);
+  margin: 0 0 2rem;
+  max-width: 900px;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ── Buttons: solid colors only, never gradients ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.btn-solid {
+  background: var(--green);
+  color: var(--pearl);
+}
+
+.btn-solid:hover {
+  background: var(--green-light);
+}
+
+.btn-outline {
+  border: 1.5px solid var(--green);
+  color: var(--green);
+}
+
+.btn-outline:hover {
+  background: var(--pearl-2);
+}
+
+.btn-pearl {
+  background: var(--pearl);
+  color: var(--green);
+}
+
+.btn-pearl:hover {
+  background: #ffffff;
+}
+
+/* ── Sections + wave dividers ── */
+.section {
+  padding: 4.5rem 0 5rem;
+  scroll-margin-top: 90px;
+}
+
+.section h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.15;
+  margin: 0 0 2rem;
+}
+
+.section-green {
+  background: var(--green);
+  color: var(--pearl);
+}
+
+.section-green h2 {
+  color: var(--pearl);
+}
+
+.section-green :focus-visible {
+  outline-color: var(--pearl);
+}
+
+.section-pearl {
+  background: var(--pearl);
+  color: var(--ink);
+}
+
+.section-pearl h2 {
+  color: var(--green);
+}
+
+.wave-wrap {
+  position: relative;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.wave-on-pearl {
+  background: var(--pearl);
+}
+
+.wave-on-green {
+  background: var(--green);
+}
+
+/* Wider than its wrap so the animated drift never exposes an edge. */
+.wave {
+  display: block;
+  width: 120%;
+  height: 64px;
+  margin-left: -10%;
+  animation: wave-drift 7s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.wave-secondary {
+  position: absolute;
+  inset: 0 auto auto 0;
+  animation-duration: 10s;
+  animation-delay: -13s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes wave-drift {
+  from {
+    transform: translateX(-6%);
+  }
+
+  to {
+    transform: translateX(6%);
+  }
+}
+
+/* ── Projects carousel: one slide centered, neighbors peeking ── */
+.carousel {
+  margin-top: 0.5rem;
+}
+
+.carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  /* Centers the first and last slides in the no-JS scroll fallback. */
+  padding-inline: calc(50% - min(340px, 44vw));
+}
+
+.slide {
+  flex: 0 0 min(680px, 88vw);
+  scroll-snap-align: center;
+}
+
+.carousel.is-js .carousel-viewport {
+  overflow: hidden;
+  scroll-snap-type: none;
+}
+
+.carousel.is-js .carousel-track {
+  padding-inline: 0;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.carousel.is-js .slide {
+  transition:
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.6s ease;
+}
+
+.carousel.is-js .slide:not(.active) {
+  transform: scale(0.88);
+  opacity: 0.55;
+}
+
+.carousel.is-js .slide:not(.active) a {
+  pointer-events: none;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.carousel-arrow {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--pearl);
+  color: var(--green);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.carousel-arrow:hover {
+  background: #ffffff;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--pearl);
+  opacity: 0.4;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    width 0.3s ease;
+}
+
+.carousel-dot.active {
+  width: 26px;
+  opacity: 1;
+}
+
+/* ── Project cards: pearl cards on the green section ── */
+
+.card {
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  overflow: hidden;
+}
+
+/* Project screenshot (optional): bleeds to the card edges and crops to
+   16:9, so source files don't need exact cropping — just a similar ratio. */
+.slide-media {
+  position: relative;
+  width: calc(100% + 3rem);
+  margin: -1.5rem -1.5rem 0.25rem;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--tag-bg);
+}
+
+.slide-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Visible identity mark on every project image: subtle, bottom-left
+   (the build-stamped mark sits bottom-right). Survives screenshots. */
+.image-mark {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 242, 0.85);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+.card-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--green);
+  color: var(--pearl);
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.3rem;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.card h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--green);
+  margin: 0;
+}
+
+.card p {
+  margin: 0;
+  color: #3d4a43;
+  line-height: 1.65;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  color: var(--green);
+}
+
+.card-links {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.card-links a {
+  color: var(--green);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ── About + contact ── */
+.section-pearl p {
+  color: #33413a;
+  line-height: 1.75;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.contact-empty {
+  opacity: 0.75;
+}
+
+/* ── Footer ── */
+.site-footer {
+  background: var(--green-2);
+  color: #c9d6cc;
+  padding: 1.75rem 0;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 3.5rem 0 3rem;
+  }
+
+  .section {
+    padding: 3rem 0 3.5rem;
+  }
+
+  .wave {
+    height: 44px;
+  }
+
+  .site-nav {
+    gap: 0.9rem;
+  }
+
+  .carousel-track {
+    gap: 16px;
+  }
+}
+
+/* ── Reveal on scroll: text and content only. Backgrounds and waves
+   never get .reveal, so they stay put. The hidden state applies only
+   when JS runs (html.js); without JS everything is visible. ── */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--d, 0s);
+}
+
+html.js .reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .wave {
+    animation: none;
+    will-change: auto;
+  }
+
+  .carousel.is-js .carousel-track,
+  .carousel.is-js .slide {
+    transition: none;
+  }
+}
