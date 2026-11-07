@@ -6,38 +6,35 @@
 // Change this one line when it is.
 export const SITE_NAME = 'Porto';
 
-// Footer copyright holder name.
-export const FOOTER_NAME = 'Alzam A.';
+// Footer copyright holder name
+export const FOOTER_NAME = 'Alzam A';
 
-// Hero tagline, written natively in each language — not a word-for-word
-// translation. Keep both versions natural-sounding in their own language;
-// do not derive one from the other.
+// Hero tagline
 export const TAGLINE = {
   en: 'Your imagination, one step closer to reality.',
-  id: 'Imajinasimu, selangkah lebih dekat menjadi nyata.',
+  id: 'Imajinasimu, selangkah lebih dekat dengan kenyataan.',
 } as const;
 
-// Projects section heading — the companion to the tagline:
-// EN pairs reality/realized, ID pairs menjadi nyata.
+// Projects section heading
 export const PROJECTS_HEADING = {
   en: 'Imaginations, already realized.',
   id: 'Imajinasi yang sudah menjadi nyata.',
 } as const;
 
-// Navigation + section copy, native in each language.
+// Navigation + section copy
 export const COPY = {
   en: {
     navHome: 'Home',
     navProjects: 'Projects',
     navAbout: 'About',
     navContact: 'Contact',
-    heroEyebrow: 'Portfolio',
+    heroEyebrow: 'Alzam A. — IT Enthusiast',
     heroCtaProjects: 'See the projects',
     heroCtaContact: 'Get in touch',
     aboutHeading: 'About',
     aboutBody: [
-      'I build websites that turn ideas into things people can actually use — a watch-together theater, business profile, and shop that run entirely in the browser.',
-      'This site collects the work so far. Each project above is an idea already realized, not a concept.',
+      'I\'m a fan of technology and have experience as an IT professional for around 4 years then, now builds websites that turn ideas into things people can actually use — a watch-together theater, business profile, and shop that run entirely in the browser.',
+      'This site collects the work so far. Each project here is an idea already realized, not a concept.',
     ],
     contactHeading: 'Contact',
     contactBody: 'The fastest way to reach me — links below!',
@@ -49,13 +46,13 @@ export const COPY = {
     navProjects: 'Proyek',
     navAbout: 'Tentang',
     navContact: 'Kontak',
-    heroEyebrow: 'Portofolio',
+    heroEyebrow: 'Alzam A. — Pegiat & Penggemar IT',
     heroCtaProjects: 'Lihat proyek',
     heroCtaContact: 'Hubungi saya',
     aboutHeading: 'Tentang',
     aboutBody: [
-      'Saya membangun situs yang mengubah ide menjadi sesuatu yang benar-benar bisa dipakai sebagai alat atau perantara — bioskop nonton bareng, profil bisnis, dan toko yang berjalan sepenuhnya di browser.',
-      'Situs ini mengumpulkan karya-karya tersebut. Setiap proyek di atas adalah sesuatu yang sudah dibangun, bukan sekadar konsep.',
+      'Saya seorang penggemar dan pegiat di bidang teknologi serta pernah bekerja sebagai karyawan di lingkup IT selama kurang lebih 4 tahun, kini membangun situs yang mengubah ide menjadi sesuatu yang benar-benar bisa dipakai sebagai alat atau perantara — bioskop nonton bareng, profil bisnis, dan toko yang berjalan sepenuhnya di browser.',
+      'Situs ini mengumpulkan karya-karya tersebut. Setiap proyek yang ada di sini adalah sesuatu yang sudah dibangun, bukan sekadar konsep.',
     ],
     contactHeading: 'Kontak',
     contactBody: 'Cara tercepat menghubungi saya — klik tautan di bawah!',
@@ -70,7 +67,7 @@ export const COPY = {
 // No fake addresses, no placeholder links.
 export const CONTACT = {
   email: 'alzamakbar2510@gmail.com',
-  github: 'https://github.com/babelvonbritton',
+  github: '',
   linkedin: '',
   // whatsapp: '',
 } as const;

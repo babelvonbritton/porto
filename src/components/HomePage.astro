@@ -44,6 +44,17 @@ const contactLinks = [
     </div>
   </section>
 
+  <section class="section section-pearl" id="about">
+    <div class="wrap wrap-narrow">
+      <h2 class="reveal">{t.aboutHeading}</h2>
+      {t.aboutBody.map((para, i) => (
+        <p class="reveal" style={`--d: ${i * 0.1}s`}>
+          {para}
+        </p>
+      ))}
+    </div>
+  </section>
+
   <!-- Pearl → dark green, over a wave. -->
   <div class="wave-wrap wave-on-pearl"><Wave fill="var(--green)" /></div>
   <section class="section section-green" id="projects">
@@ -143,21 +154,6 @@ const contactLinks = [
     </div>
   </section>
 
-  <!-- Dark green → pearl, over a wave. -->
-  <div class="wave-wrap wave-on-green"><Wave fill="var(--pearl)" /></div>
-  <section class="section section-pearl" id="about">
-    <div class="wrap wrap-narrow">
-      <h2 class="reveal">{t.aboutHeading}</h2>
-      {t.aboutBody.map((para, i) => (
-        <p class="reveal" style={`--d: ${i * 0.1}s`}>
-          {para}
-        </p>
-      ))}
-    </div>
-  </section>
-
-  <!-- Pearl → dark green, over a wave. -->
-  <div class="wave-wrap wave-on-pearl"><Wave fill="var(--green)" /></div>
   <section class="section section-green" id="contact">
     <div class="wrap wrap-narrow">
       <h2 class="reveal">{t.contactHeading}</h2>
