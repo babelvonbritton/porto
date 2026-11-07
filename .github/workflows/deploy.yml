@@ -34,6 +34,10 @@ jobs:
         env:
           PUBLIC_SITE_URL: https://porto.bvbritton.bond
           PUBLIC_SITE_BASE: /
+          # Contact chat widget endpoint (set as the CONTACT_API_URL
+          # repository variable; empty until the Worker is deployed —
+          # the widget then shows a mailto fallback).
+          PUBLIC_CONTACT_API_URL: ${{ vars.CONTACT_API_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

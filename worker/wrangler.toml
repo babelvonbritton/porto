@@ -1,0 +1,18 @@
+# Porto contact API — a standalone Cloudflare Worker, deployed
+# independently from the static site (see README.md).
+#
+# Free-tier design: no KV, Durable Objects, R2, or database bindings.
+# Rate limiting is in-memory and the Worker makes at most one
+# subrequest (Resend) per valid submission.
+name = "porto-contact"
+main = "src/index.ts"
+compatibility_date = "2026-11-07"
+
+[vars]
+# Public, non-secret configuration. The API key is a secret — set it
+# with `wrangler secret put RESEND_API_KEY`, never put it here.
+CONTACT_TO = "alzamakbar2510@gmail.com"
+# Must be a Resend-verified sender domain (see README.md).
+CONTACT_FROM = "contact@porto.bvbritton.bond"
+# Comma-separated origins allowed to call the API.
+ALLOWED_ORIGINS = "https://porto.bvbritton.bond,http://localhost:4321,http://127.0.0.1:4321"

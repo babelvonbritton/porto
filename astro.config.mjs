@@ -8,4 +8,11 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: process.env.PUBLIC_SITE_URL || undefined,
   base: process.env.PUBLIC_SITE_BASE || '/porto',
+  // Never inline stylesheets: the chat widget's CSS must stay a
+  // separate file so it only downloads when the widget opens. (The
+  // default 'auto' inlines small stylesheets into the HTML, which
+  // would ship the widget CSS with every page load.)
+  build: {
+    inlineStylesheets: 'never',
+  },
 });

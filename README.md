@@ -76,6 +76,27 @@ full URL. Aim for around 1200×675 (16:9) or larger; the carousel crops to
 16:9, so an exact crop isn't needed, but similar ratios look best. Prefer
 WebP or JPG to keep the file light; PNG is fine for crisp interface shots.
 
+## Contact chat widget
+
+A floating chat button (bottom-right) opens a small bilingual
+(EN/ID) chat window. The conversation is a fixed guided flow — message,
+name, contact (email or WhatsApp), confirm, send — not AI. The widget
+is lazy: its code and CSS only download when a visitor opens it, and it
+makes exactly one API call per submission.
+
+The site stays fully static. Submissions go to a separate Cloudflare
+Worker (`worker/` — its own deploy, its own README), which validates,
+rate-limits, and forwards the message by email via Resend. The Worker
+is built to stay inside the Cloudflare Workers Free plan (no KV, no
+Durable Objects, no database; one subrequest per valid submission).
+
+Deploy order: Worker first, then the site. Deploy the Worker
+(`worker/README.md`), copy its URL, and set it as the `CONTACT_API_URL`
+repository variable (Settings → Secrets and variables → Actions →
+Variables). The Pages workflow passes it to the build as
+`PUBLIC_CONTACT_API_URL`. Until it's set, the widget shows a mailto
+fallback instead of failing silently.
+
 ## If the custom domain is ever dropped
 
 Remove `public/CNAME`, set `PUBLIC_SITE_BASE` back to `/<repo>` in the

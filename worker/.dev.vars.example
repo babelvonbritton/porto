@@ -1,0 +1,8 @@
+# Local development secrets for `wrangler dev`.
+# Copy this file to `.dev.vars` (gitignored — never commit it).
+RESEND_API_KEY="re_..."
+CONTACT_TO="alzamakbar2510@gmail.com"
+CONTACT_FROM="contact@porto.bvbritton.bond"
+ALLOWED_ORIGINS="https://porto.bvbritton.bond,http://localhost:4321,http://127.0.0.1:4321"
+# RESEND_API_URL="https://api.resend.com/emails"
+#   Default; override to point at a local stub server when testing.

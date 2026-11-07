@@ -566,3 +566,74 @@ html.js .reveal.in-view {
     transition: none;
   }
 }
+
+/* Contact chat widget button. Lives in the main stylesheet — not the
+   lazily loaded widget CSS — so the button renders in place (fixed,
+   bottom-right) before the widget module loads. The window and
+   everything inside it is styled by chat-widget.css, which only
+   downloads when a visitor opens the chat. */
+.chat-widget {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  font-family: var(--sans);
+}
+
+.chat-toggle {
+  width: 3.5rem;
+  height: 3.5rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--pearl);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgba(8, 42, 32, 0.35);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.chat-toggle:hover {
+  background: var(--green-light);
+  transform: translateY(-2px);
+}
+
+.chat-toggle:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+.chat-toggle svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.chat-toggle .chat-icon-close {
+  display: none;
+}
+
+.chat-widget.is-open .chat-toggle .chat-icon-open {
+  display: none;
+}
+
+.chat-widget.is-open .chat-toggle .chat-icon-close {
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .chat-widget {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-toggle {
+    transition: none;
+  }
+}

@@ -1,5 +1,6 @@
 ---
 import { SITE_NAME, FOOTER_NAME, COPY, type Lang } from '../config/site';
+import ChatWidget from '../components/ChatWidget.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -60,5 +61,7 @@ const year = new Date().getFullYear();
         <p>© {year} {FOOTER_NAME}. {t.footerRights}</p>
       </div>
     </footer>
+
+    <ChatWidget lang={lang} />
   </body>
 </html>
