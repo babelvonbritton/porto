@@ -1,8 +1,8 @@
 ---
 title: Brewfolio
 titleId: Brewfolio
-description: A culinary business profile template
-descriptionId: Templat profil bisnis kuliner
+description: A website template for food and beverage profile businesses.
+descriptionId: Website profil bisnis untuk usaha kuliner.
 live: https://babelvonbritton.github.io/brewfolio/en/
 image: projects/brewfolio.jpg
 featured: true

@@ -2,23 +2,21 @@
 // Change the values in this file and the whole site follows. Nothing else
 // needs editing for a name change, a tagline change, or contact details.
 //
-// SITE_NAME is a placeholder: the website's name is not decided yet.
-// Change this one line when it is.
-export const SITE_NAME = 'Porto';
+export const SITE_NAME = 'Keykaku';
 
 // Footer copyright holder name
 export const FOOTER_NAME = 'Alzam A';
 
 // Hero tagline
 export const TAGLINE = {
-  en: 'Your imagination, one step closer to reality.',
-  id: 'Imajinasimu, selangkah lebih dekat dengan kenyataan.',
+  en: 'Your imagination, one step closer to reality!',
+  id: 'Berawal dari ide sederhana menjadi sesuatu yang nyata!',
 } as const;
 
 // Projects section heading
 export const PROJECTS_HEADING = {
-  en: 'Imaginations, already realized.',
-  id: 'Imajinasi yang sudah menjadi nyata.',
+  en: 'Things I\'ve Brought to Life.',
+  id: 'Beberapa karya yang telah saya bangun.',
 } as const;
 
 // Navigation + section copy
@@ -29,15 +27,16 @@ export const COPY = {
     navAbout: 'About',
     navContact: 'Contact',
     heroEyebrow: 'Alzam A. — IT Enthusiast',
-    heroCtaProjects: 'See the projects',
-    heroCtaContact: 'Get in touch',
+    heroCtaProjects: 'See what I\'ve built!',
+    heroCtaContact: 'Get in touch or hit the Chat Bot!',
     aboutHeading: 'About',
     aboutBody: [
-      'I\'m a fan of technology and have experience as an IT professional for around 4 years then, now builds websites that turn ideas into things people can actually use — a watch-together theater, business profile, and shop that run entirely in the browser.',
-      'This site collects the work so far. Each project here is an idea already realized, not a concept.',
+      'I\'ve spent around four years working in the IT field. These days, I focus on turning ideas into practical websites and applications that people can actually use.',
+      'My projects range from productivity tools and watch-together platforms to business websites and inventory management systems. Each one gives me a chance to explore new ideas, solve problems, and build something useful.',
+      'This portfolio is where I share the projects I\'ve worked on and brought to life.',
     ],
     contactHeading: 'Contact',
-    contactBody: 'The fastest way to reach me — links below!',
+    contactBody: 'Have a project in mind, a question, or an idea you\'d like to discuss?\nI\'m always open to new opportunities and interesting conversations. Feel free to reach out!',
     contactEmpty: 'Contact details will live here.',
     footerRights: 'All rights reserved.',
   },
@@ -46,16 +45,17 @@ export const COPY = {
     navProjects: 'Proyek',
     navAbout: 'Tentang',
     navContact: 'Kontak',
-    heroEyebrow: 'Alzam A. — Pegiat & Penggemar IT',
-    heroCtaProjects: 'Lihat proyek',
-    heroCtaContact: 'Hubungi saya',
+    heroEyebrow: 'Alzam A. — Petualang dunia IT',
+    heroCtaProjects: 'Lihat yang saya kerjakan disini!',
+    heroCtaContact: 'Kontak saya atau melalui Chat Bot di pojok layar ~',
     aboutHeading: 'Tentang',
     aboutBody: [
-      'Saya seorang penggemar dan pegiat di bidang teknologi serta pernah bekerja sebagai karyawan di lingkup IT selama kurang lebih 4 tahun, kini membangun situs yang mengubah ide menjadi sesuatu yang benar-benar bisa dipakai sebagai alat atau perantara — bioskop nonton bareng, profil bisnis, dan toko yang berjalan sepenuhnya di browser.',
-      'Situs ini mengumpulkan karya-karya tersebut. Setiap proyek yang ada di sini adalah sesuatu yang sudah dibangun, bukan sekadar konsep.',
+      'Saya telah berkecimpung di bidang IT selama kurang lebih empat tahun. Saat ini, saya berfokus membangun berbagai aplikasi dan website yang berangkat dari ide sederhana menjadi sesuatu yang benar-benar bisa digunakan.',
+      'Mulai dari aplikasi produktivitas, platform nonton bareng, hingga sistem kasir dan pengelolaan bisnis. Bagi saya, setiap proyek adalah kesempatan untuk mencoba ide baru, memecahkan masalah, dan menciptakan sesuatu yang bermanfaat.',
+      'Website ini menjadi tempat saya memperkenalkan berbagai karya yang telah saya bangun.',
     ],
     contactHeading: 'Kontak',
-    contactBody: 'Cara tercepat menghubungi saya — klik tautan di bawah!',
+    contactBody: 'Punya ide, pertanyaan, atau tertarik bekerja sama? Mari kita diskusikan!',
     contactEmpty: 'Detail kontak akan ada di sini.',
     footerRights: 'Hak cipta dilindungi.',
   },

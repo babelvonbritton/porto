@@ -1,9 +1,9 @@
 ---
 title: TokoKita
 titleId: TokoKita
-description: A single-file store POS and inventory app - run and stored locally for mobile and desktop!
-descriptionId: Aplikasi kasir dan inventaris toko berjalan secara lokal untuk ponsel dan desktop!
-tags: [IndexedDB, Single-file app, Locally stored, Share through backup & restore, Run locally]
+description: A lightweight POS and inventory management app for small businesses. Manage sales and stock directly from your device.
+descriptionId: Aplikasi kasir dan pengelolaan stok barang untuk toko. Bisa digunakan di ponsel maupun komputer, dengan data yang tersimpan langsung di perangkat.
+tags: [Local Storage, 100% Offline]
 image: projects/tokokita.jpg
 featured: true
 ---

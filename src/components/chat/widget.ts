@@ -382,12 +382,15 @@ export class ChatWidget {
   private currentPlaceholderKey():
     | 'placeholderMessage'
     | 'placeholderName'
-    | 'placeholderContact' {
+    | 'placeholderContact'
+    | 'placeholderCountryCode' {
     switch (this.flow.state) {
       case 'awaitingName':
         return 'placeholderName';
       case 'awaitingContact':
         return 'placeholderContact';
+      case 'awaitingCountryCode':
+        return 'placeholderCountryCode';
       default:
         return 'placeholderMessage';
     }

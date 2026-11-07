@@ -12,6 +12,7 @@ export interface ChatStrings {
   greeting: string;
   askName: string;
   askContact: string;
+  askCountryCode: string;
   confirmIntro: string;
   sending: string;
   success: string;
@@ -20,6 +21,7 @@ export interface ChatStrings {
   placeholderMessage: string;
   placeholderName: string;
   placeholderContact: string;
+  placeholderCountryCode: string;
   send: string;
   sendMessage: string;
   startOver: string;
@@ -34,6 +36,7 @@ export interface ChatStrings {
   errNameTooShort: string;
   errNameTooLong: string;
   errContactInvalid: string;
+  errCountryCodeInvalid: string;
   typing: string;
   emailMe: string;
 }
@@ -48,6 +51,7 @@ export const STRINGS: Record<Lang, ChatStrings> = {
       "Hi there! Leave a message for Alzam and he'll get back to you. What's your message?",
     askName: 'Thanks! What should I call you?',
     askContact: 'And how can Alzam reach you — your email or WhatsApp number?',
+    askCountryCode: 'What is your country calling code? For example, +1 for USA or Canada.',
     confirmIntro: "Here's what I'll send — take a quick look, then hit send.",
     sending: 'Sending…',
     success: 'Message sent! Thanks, {name} — Alzam will get back to you soon.',
@@ -57,6 +61,7 @@ export const STRINGS: Record<Lang, ChatStrings> = {
     placeholderMessage: 'Type your message…',
     placeholderName: 'Your name',
     placeholderContact: 'Email or WhatsApp number',
+    placeholderCountryCode: 'Country calling code, e.g. +1',
     send: 'Send',
     sendMessage: 'Send message',
     startOver: 'Start over',
@@ -72,6 +77,8 @@ export const STRINGS: Record<Lang, ChatStrings> = {
     errNameTooLong: 'Please keep your name under 100 characters.',
     errContactInvalid:
       "That doesn't look like an email or WhatsApp number — could you check it?",
+    errCountryCodeInvalid:
+      "I couldn't match that number and country code. Please check both and try again.",
     typing: 'Alzam is typing',
     emailMe: 'Email Alzam',
   },
@@ -84,7 +91,8 @@ export const STRINGS: Record<Lang, ChatStrings> = {
       'Halo! Tinggalkan pesan untuk Alzam, nanti dia akan membalasmu. Apa pesanmu?',
     askName: 'Terima kasih! Siapa namamu?',
     askContact: 'Terakhir, bagaimana Alzam bisa menghubungimu — email atau nomor WhatsApp?',
-    confirmIntro: 'Ini pesan yang akan dikirim — cek dulu sebentar, lalu kirim.',
+    askCountryCode: 'Apa kode telepon negaramu? Contohnya, +62 untuk Indonesia.',
+    confirmIntro: 'Ini pesan yang akan dikirim — kirim jika sudah yakin.',
     sending: 'Mengirim…',
     success: 'Pesan terkirim! Terima kasih, {name} — Alzam akan segera membalasmu.',
     error: 'Terjadi kesalahan saat mengirim. Silakan coba lagi.',
@@ -93,6 +101,7 @@ export const STRINGS: Record<Lang, ChatStrings> = {
     placeholderMessage: 'Tulis pesanmu…',
     placeholderName: 'Namamu',
     placeholderContact: 'Email atau nomor WhatsApp',
+    placeholderCountryCode: 'Kode telepon negara, mis. +62',
     send: 'Kirim',
     sendMessage: 'Kirim pesan',
     startOver: 'Mulai dari awal',
@@ -108,6 +117,8 @@ export const STRINGS: Record<Lang, ChatStrings> = {
     errNameTooLong: 'Namamu maksimal 100 karakter ya.',
     errContactInvalid:
       'Itu tidak terlihat seperti email atau nomor WhatsApp — bisa dicek lagi?',
+    errCountryCodeInvalid:
+      'Nomor dan kode negara tersebut tidak cocok. Coba periksa kembali, ya.',
     typing: 'Alzam sedang mengetik',
     emailMe: 'Email Alzam',
   },

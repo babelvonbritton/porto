@@ -10,6 +10,7 @@ export type FlowState =
   | 'awaitingMessage'
   | 'awaitingName'
   | 'awaitingContact'
+  | 'awaitingCountryCode'
   | 'confirming'
   | 'submitting'
   | 'done'

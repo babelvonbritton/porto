@@ -1,9 +1,9 @@
 ---
 title: Luxe Kanban
 titleId: Luxe Kanban
-description: A luxurious but minimalist kanban board for you to track every activities or to-dos!
-descriptionId: Kanban board yang mewah namun tetap minimalis untuk mencatat dan melacak seluruh aktivitas!
-tags: [Locally stored data, Share through backup & restore]
+description: A minimalist Kanban board to organize tasks and keep track of your progress.
+descriptionId: Aplikasi pengelola tugas dengan tampilan Kanban yang minimalis. Atur aktivitas, pantau progres, dan simpan data langsung di perangkat.
+tags: [Local Storage]
 live: https://kanban.bvbritton.bond/
 image: projects/luxekanban.jpg
 featured: true

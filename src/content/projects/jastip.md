@@ -1,9 +1,9 @@
 ---
 title: Personal-shopper
 titleId: Jastip
-description: A single-file web to help personal-shopper — orders, invoices, and profit tracking, all in the browser.
-descriptionId: Situs untuk mempermudah pencatatan jastip — pesanan, invoice, dan pelacakan profit, semuanya di browser.
-tags: [IndexedDB, Single-file app, Locally stored, Share through backup & restore, Run locally]
+description: A simple tool for managing personal shopping businesses. Track orders, create invoices, and monitor profits in one place.
+descriptionId: Aplikasi untuk mengelola bisnis jasa titip. Catat pesanan, buat invoice, dan pantau keuntungan dalam satu tempat.
+tags: [Local Storage, 100% Offline]
 image: projects/jastip.jpg
 featured: true
 ---

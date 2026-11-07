@@ -2,10 +2,18 @@
 // Pure logic: no DOM access. The widget drives it and renders the
 // messages it returns. States:
 //   greeting -> awaitingMessage -> awaitingName -> awaitingContact
+//   -> awaitingCountryCode (for local phone numbers)
 //   -> confirming -> submitting -> done | error
 
 import type { ContactKind, ContactPayload, FlowState, ValidationResult } from './types';
-import { detectContactKind, validateContact, validateMessage, validateName } from './validation';
+import {
+  detectContactKind,
+  normalizeInternationalPhone,
+  normalizePhoneWithCountryCode,
+  validateContact,
+  validateMessage,
+  validateName,
+} from './validation';
 
 export interface FlowStep {
   // Bot message keys (into locales.ts) to show after this transition.
@@ -14,7 +22,11 @@ export interface FlowStep {
   // 'confirm' (Send / Start over buttons), or 'none'.
   input: 'text' | 'confirm' | 'none';
   // Placeholder key for the text input, when input is 'text'.
-  placeholderKey?: 'placeholderMessage' | 'placeholderName' | 'placeholderContact';
+  placeholderKey?:
+    | 'placeholderMessage'
+    | 'placeholderName'
+    | 'placeholderContact'
+    | 'placeholderCountryCode';
   // Error key to show when the user's input failed validation.
   errorKey?: string;
 }
@@ -24,6 +36,7 @@ const INPUT_FOR_STATE: Record<FlowState, FlowStep['input']> = {
   awaitingMessage: 'text',
   awaitingName: 'text',
   awaitingContact: 'text',
+  awaitingCountryCode: 'text',
   confirming: 'confirm',
   submitting: 'none',
   done: 'none',
@@ -34,6 +47,7 @@ const PLACEHOLDER_FOR_STATE: Partial<Record<FlowState, FlowStep['placeholderKey'
   awaitingMessage: 'placeholderMessage',
   awaitingName: 'placeholderName',
   awaitingContact: 'placeholderContact',
+  awaitingCountryCode: 'placeholderCountryCode',
 };
 
 export class ConversationFlow {
@@ -42,6 +56,7 @@ export class ConversationFlow {
   message = '';
   contact = '';
   contactKind: ContactKind | null = null;
+  private phoneAwaitingCountryCode = '';
 
   // The first bot message, shown when the chat window opens.
   greetingStep(): FlowStep {
@@ -71,8 +86,38 @@ export class ConversationFlow {
       case 'awaitingContact': {
         const check = validateContact(text);
         if (!check.ok) return this.invalid(check);
-        this.contact = text;
-        this.contactKind = detectContactKind(text);
+        const kind = detectContactKind(text);
+        if (kind === 'email') {
+          this.contact = text;
+          this.contactKind = kind;
+          this.state = 'confirming';
+          return { botKeys: ['confirmIntro'], input: 'confirm' };
+        }
+
+        if (text.startsWith('+')) {
+          const normalized = normalizeInternationalPhone(text);
+          if (!normalized) return this.invalid({ ok: false, errorKey: 'errContactInvalid' });
+          this.contact = normalized;
+          this.contactKind = 'whatsapp';
+          this.state = 'confirming';
+          return { botKeys: ['confirmIntro'], input: 'confirm' };
+        }
+
+        this.phoneAwaitingCountryCode = text;
+        this.state = 'awaitingCountryCode';
+        return {
+          botKeys: ['askCountryCode'],
+          input: 'text',
+          placeholderKey: 'placeholderCountryCode',
+        };
+      }
+      case 'awaitingCountryCode': {
+        const normalized = normalizePhoneWithCountryCode(this.phoneAwaitingCountryCode, text);
+        if (!normalized) {
+          return this.invalid({ ok: false, errorKey: 'errCountryCodeInvalid' });
+        }
+        this.contact = normalized;
+        this.contactKind = 'whatsapp';
         this.state = 'confirming';
         return { botKeys: ['confirmIntro'], input: 'confirm' };
       }
@@ -114,6 +159,7 @@ export class ConversationFlow {
     this.message = '';
     this.contact = '';
     this.contactKind = null;
+    this.phoneAwaitingCountryCode = '';
     return this.greetingStep();
   }
 
