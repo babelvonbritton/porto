@@ -1,7 +1,7 @@
 ---
 title: Eigakan
 titleId: Eigakan
-description: A private watch-together theater for two — synchronized playback dan live chat!
+description: A private watch-together theater for two — synchronized playback and live chat!
 descriptionId: Bioskop nonton bareng privat untuk dua orang — pemutaran tersinkronisasi dan obrolan langsung dengan fitur live chat!
 live: https://bvbritton.bond/eigakan
 image: projects/eigakan.jpg

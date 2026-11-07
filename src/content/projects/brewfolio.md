@@ -3,7 +3,6 @@ title: Brewfolio
 titleId: Brewfolio
 description: A culinary business profile template
 descriptionId: Templat profil bisnis kuliner
-tags: [Astro, TypeScript, GitHub Pages]
 live: https://babelvonbritton.github.io/brewfolio/en/
 image: projects/brewfolio.jpg
 featured: true
