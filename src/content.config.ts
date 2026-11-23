@@ -18,6 +18,13 @@ const projects = defineCollection({
     // or a full URL. Omit it and the card shows the monogram tile instead.
     image: z.string().optional(),
     featured: z.boolean().default(false),
+    // Carousel sequence among featured projects: lowest first.
+    // Non-featured projects render in the Earlier work list instead.
+    order: z.number().default(99),
+    // One-line note shown in the Earlier work list (e.g. what
+    // superseded this project). Only used when featured is false.
+    earlierNote: z.string().optional(),
+    earlierNoteId: z.string().optional(),
   }),
 });
 

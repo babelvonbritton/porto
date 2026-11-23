@@ -6,6 +6,7 @@ descriptionId: Website profil bisnis untuk usaha kuliner.
 live: https://babelvonbritton.github.io/brewfolio/en/
 image: projects/brewfolio.jpg
 featured: true
+order: 6
 ---
 
 Brewfolio is a template for a culinary business profile page: menu, story,

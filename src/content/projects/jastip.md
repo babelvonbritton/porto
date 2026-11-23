@@ -6,6 +6,7 @@ descriptionId: Aplikasi untuk mengelola bisnis jasa titip. Catat pesanan, buat i
 tags: [Local Storage, 100% Offline]
 image: projects/jastip.jpg
 featured: true
+order: 4
 ---
 
 Jastip tracks a Japan personal-shopping business end to end: customers,

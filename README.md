@@ -33,7 +33,7 @@ All customizable things live in `src/config/site.ts`:
 
 | What | Where |
 |---|---|
-| Website name (currently the placeholder `Porto`) | `SITE_NAME` |
+| Website name (`Techne`) | `SITE_NAME` |
 | Footer copyright holder | `FOOTER_NAME` |
 | Hero tagline (EN + ID) | `TAGLINE` |
 | Projects heading (EN + ID) | `PROJECTS_HEADING` |
@@ -60,12 +60,17 @@ live: https://example.com
 repo: https://github.com/you/my-project
 image: projects/my-project.png
 featured: true
+order: 1
 ---
 
 Optional longer write-up (not shown on the card yet).
 ```
 
-Omit `live` or `repo` and that link simply doesn't render.
+Omit `live` or `repo` and that link simply doesn't render. `order`
+controls the carousel sequence among featured projects (lowest first).
+Set `featured: false` and the project leaves the carousel for the
+Earlier work list, where `earlierNote` (and `earlierNoteId`) says what
+happened to it.
 
 ## Project images
 

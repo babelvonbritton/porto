@@ -2,7 +2,7 @@
 // Change the values in this file and the whole site follows. Nothing else
 // needs editing for a name change, a tagline change, or contact details.
 //
-export const SITE_NAME = 'Keykaku';
+export const SITE_NAME = 'Techne';
 
 // Footer copyright holder name
 export const FOOTER_NAME = 'Alzam A';
@@ -39,6 +39,7 @@ export const COPY = {
     contactBody: 'Have a project in mind, a question, or an idea you\'d like to discuss?\nI\'m always open to new opportunities and interesting conversations. Feel free to reach out!',
     contactEmpty: 'Contact details will live here.',
     footerRights: 'All rights reserved.',
+    earlierHeading: 'Earlier work',
   },
   id: {
     navHome: 'Beranda',
@@ -58,6 +59,7 @@ export const COPY = {
     contactBody: 'Punya ide, pertanyaan, atau tertarik bekerja sama? Mari kita diskusikan!',
     contactEmpty: 'Detail kontak akan ada di sini.',
     footerRights: 'Hak cipta dilindungi.',
+    earlierHeading: 'Karya sebelumnya',
   },
 } as const;
 
@@ -67,7 +69,7 @@ export const COPY = {
 // No fake addresses, no placeholder links.
 export const CONTACT = {
   email: 'alzamakbar2510@gmail.com',
-  github: '',
+  github: 'https://github.com/babelvonbritton',
   linkedin: '',
   // whatsapp: '',
 } as const;

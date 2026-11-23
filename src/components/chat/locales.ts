@@ -26,6 +26,8 @@ export interface ChatStrings {
   sendMessage: string;
   startOver: string;
   retry: string;
+  copyMessage: string;
+  copied: string;
   close: string;
   newMessage: string;
   labelMessage: string;
@@ -55,7 +57,7 @@ export const STRINGS: Record<Lang, ChatStrings> = {
     confirmIntro: "Here's what I'll send — take a quick look, then hit send.",
     sending: 'Sending…',
     success: 'Message sent! Thanks, {name} — Alzam will get back to you soon.',
-    error: 'Something went wrong while sending. Please try again.',
+    error: 'Something went wrong while sending. Your message is still here. Try again, or copy it.',
     notConfigured:
       "The contact form isn't connected yet — you can email Alzam directly instead.",
     placeholderMessage: 'Type your message…',
@@ -66,6 +68,8 @@ export const STRINGS: Record<Lang, ChatStrings> = {
     sendMessage: 'Send message',
     startOver: 'Start over',
     retry: 'Try again',
+    copyMessage: 'Copy my message',
+    copied: 'Copied',
     close: 'Close',
     newMessage: 'Send another message',
     labelMessage: 'Message',
@@ -95,7 +99,7 @@ export const STRINGS: Record<Lang, ChatStrings> = {
     confirmIntro: 'Ini pesan yang akan dikirim — kirim jika sudah yakin.',
     sending: 'Mengirim…',
     success: 'Pesan terkirim! Terima kasih, {name} — Alzam akan segera membalasmu.',
-    error: 'Terjadi kesalahan saat mengirim. Silakan coba lagi.',
+    error: 'Terjadi kesalahan saat mengirim. Pesanmu masih tersimpan, coba lagi atau salin pesannya.',
     notConfigured:
       'Formulir kontak belum terhubung — kamu bisa mengirim email langsung ke Alzam.',
     placeholderMessage: 'Tulis pesanmu…',
@@ -106,6 +110,8 @@ export const STRINGS: Record<Lang, ChatStrings> = {
     sendMessage: 'Kirim pesan',
     startOver: 'Mulai dari awal',
     retry: 'Coba lagi',
+    copyMessage: 'Salin pesanku',
+    copied: 'Disalin',
     close: 'Tutup',
     newMessage: 'Kirim pesan lain',
     labelMessage: 'Pesan',

@@ -6,5 +6,7 @@ descriptionId: Aplikasi pengelola tugas dengan tampilan Kanban yang minimalis. A
 tags: [Local Storage]
 live: https://kanban.bvbritton.bond/
 image: projects/luxekanban.jpg
-featured: true
+featured: false
+earlierNote: Superseded by Repo
+earlierNoteId: Digantikan oleh Repo
 ---

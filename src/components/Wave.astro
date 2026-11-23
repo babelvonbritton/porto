@@ -4,6 +4,14 @@
 // and pass the NEXT section's color as `fill`. The wave curve is the
 // boundary, so pearl flows into green (or green back into pearl) with no
 // hard line and no gradient anywhere.
+//
+// Endless ride: each SVG holds TWO copies of the same wave, one tile wide
+// each (viewBox 2880 = 2 x 1440), and the CSS slides the SVG from
+// translateX(-50%) to translateX(0), so the pattern rides to the right
+// forever. The loop is seamless because the path tiles: it starts and ends
+// at the same height with the same slope (the last control point of each
+// path is chosen so the end tangent matches the start tangent), so the
+// second copy is indistinguishable from the first at the loop point.
 interface Props {
   fill: string;
 }
@@ -11,23 +19,33 @@ const { fill } = Astro.props;
 ---
 <svg
   class="wave wave-secondary"
-  viewBox="0 0 1440 90"
+  viewBox="0 0 2880 90"
   preserveAspectRatio="none"
   aria-hidden="true"
 >
   <path
-    d="M0,28 C240,70 480,8 720,24 C960,54 1200,70 1440,28 L1440,90 L0,90 Z"
+    d="M0,28 C240,70 480,8 720,24 C960,54 1200,-14 1440,28 L1440,90 L0,90 Z"
     fill="var(--wave-muted)"
+  />
+  <path
+    d="M0,28 C240,70 480,8 720,24 C960,54 1200,-14 1440,28 L1440,90 L0,90 Z"
+    fill="var(--wave-muted)"
+    transform="translate(1440 0)"
   />
 </svg>
 <svg
   class="wave"
-  viewBox="0 0 1440 90"
+  viewBox="0 0 2880 90"
   preserveAspectRatio="none"
   aria-hidden="true"
 >
   <path
-    d="M0,48 C240,90 480,0 720,36 C960,72 1200,90 1440,48 L1440,90 L0,90 Z"
+    d="M0,48 C240,90 480,0 720,36 C960,72 1200,6 1440,48 L1440,90 L0,90 Z"
     fill={fill}
+  />
+  <path
+    d="M0,48 C240,90 480,0 720,36 C960,72 1200,6 1440,48 L1440,90 L0,90 Z"
+    fill={fill}
+    transform="translate(1440 0)"
   />
 </svg>

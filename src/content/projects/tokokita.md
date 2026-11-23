@@ -6,6 +6,7 @@ descriptionId: Aplikasi kasir dan pengelolaan stok barang untuk toko. Bisa digun
 tags: [Local Storage, 100% Offline]
 image: projects/tokokita.jpg
 featured: true
+order: 5
 ---
 
 TokoKita is a cashier and logistics app for a small store: inventory,

@@ -218,9 +218,13 @@ export class ChatWidget {
       } else {
         this.showActions([
           { label: this.strings.retry, onClick: () => this.handleRetry() },
+          { label: this.strings.copyMessage, onClick: (el) => void this.handleCopyMessage(el) },
           { label: this.strings.startOver, onClick: () => this.handleStartOver() },
         ]);
       }
+      // Land keyboard and screen-reader focus on the recovery actions
+      // (Retry first) instead of leaving it on the disabled send button.
+      this.focusFirstAction();
     } finally {
       this.sending = false;
       this.setFormEnabled(true);
@@ -231,6 +235,50 @@ export class ChatWidget {
     this.clearActions();
     const step = this.flow.retry();
     this.applyConfirmMode(step);
+  }
+
+  // Copies the visitor's message text so a failed send never loses it.
+  // Clipboard API first, with a textarea fallback for older browsers
+  // or insecure contexts. The button briefly confirms the copy.
+  private async handleCopyMessage(button: HTMLElement): Promise<void> {
+    const text = this.flow.message;
+    let ok = false;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      }
+    } catch {
+      ok = false;
+    }
+    if (!ok) {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.appendChild(area);
+      area.select();
+      try {
+        ok = document.execCommand('copy');
+      } catch {
+        ok = false;
+      }
+      area.remove();
+    }
+    if (ok) {
+      button.textContent = this.strings.copied;
+      window.setTimeout(() => {
+        button.textContent = this.strings.copyMessage;
+      }, 2000);
+    }
+  }
+
+  private focusFirstAction(): void {
+    const first = this.messagesEl.querySelector<HTMLElement>(
+      '[data-chat-actions] button, [data-chat-actions] a',
+    );
+    first?.focus();
   }
 
   private handleStartOver(): void {
@@ -321,7 +369,7 @@ export class ChatWidget {
   }
 
   private showActions(
-    actions: Array<{ label: string; onClick?: () => void; href?: string }>,
+    actions: Array<{ label: string; onClick?: (el: HTMLElement) => void; href?: string }>,
   ): void {
     this.clearActions();
     const row = document.createElement('div');
@@ -334,7 +382,7 @@ export class ChatWidget {
       if (action.href) (el as HTMLAnchorElement).href = action.href;
       else {
         (el as HTMLButtonElement).type = 'button';
-        el.addEventListener('click', () => action.onClick?.());
+        el.addEventListener('click', () => action.onClick?.(el));
       }
       row.appendChild(el);
     });

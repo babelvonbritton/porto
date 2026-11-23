@@ -238,31 +238,42 @@ button:focus-visible {
   background: var(--green);
 }
 
-/* Wider than its wrap so the animated drift never exposes an edge. */
+/* Two tiles wide (see Wave.astro): the ride slides one tile to the right
+   and loops, so the pattern never runs out. Static by default; the ride
+   only runs where motion is welcome (see below). */
 .wave {
   display: block;
-  width: 120%;
+  width: 200%;
   height: 64px;
-  margin-left: -10%;
-  animation: wave-drift 7s ease-in-out infinite alternate;
-  will-change: transform;
 }
 
 .wave-secondary {
   position: absolute;
   inset: 0 auto auto 0;
-  animation-duration: 10s;
-  animation-delay: -13s;
-  animation-direction: alternate-reverse;
 }
 
-@keyframes wave-drift {
+/* Linear timing is what makes the loop seamless: any easing would make
+   the wave speed up and slow down once per cycle. The muted layer rides
+   slower for parallax and starts mid-cycle so the layers never align. */
+@media (prefers-reduced-motion: no-preference) {
+  .wave {
+    animation: wave-ride 14s linear infinite;
+    will-change: transform;
+  }
+
+  .wave-secondary {
+    animation-duration: 22s;
+    animation-delay: -8s;
+  }
+}
+
+@keyframes wave-ride {
   from {
-    transform: translateX(-6%);
+    transform: translateX(-50%);
   }
 
   to {
-    transform: translateX(6%);
+    transform: translateX(0);
   }
 }
 
@@ -476,10 +487,178 @@ button:focus-visible {
   text-underline-offset: 4px;
 }
 
+/* ── Earlier work: quiet text rows under the carousel ── */
+/* Deliberately plainer than the cards: a superseded project is
+   lineage, not a second showcase. Same green ground and pearl text
+   as the section, separated by one hairline. */
+.earlier-work {
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(250, 247, 242, 0.25);
+}
+
+.earlier-work h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--pearl);
+  margin: 0 0 0.75rem;
+}
+
+.earlier-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.earlier-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  font-size: 0.95rem;
+}
+
+.earlier-title {
+  font-weight: 600;
+  color: var(--pearl);
+}
+
+.earlier-note {
+  color: rgba(250, 247, 242, 0.75);
+}
+
+.earlier-list a {
+  color: var(--pearl);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 /* ── About + contact ── */
 .section-pearl p {
   color: #33413a;
   line-height: 1.75;
+}
+
+/* ── About: silhouette backdrop ── */
+/* Two columns, magazine style: text on the left, the figure on the
+   right, full-bleed to the viewport edge. The row is at least 640px
+   tall no matter how the text wraps, so the figure always shows head,
+   shoulders and upper jacket the same way at every window size — the
+   framing no longer depends on the text height. The photo is a pure
+   cutout — only the dark-green person, background gone to pearl (see
+   scripts/make-about-silhouette.py) — so the picture has no border.
+   The wave divider slides up over the section's bottom 64px, so the
+   figure's bottom line never shows: the wave is its bottom edge. */
+/* Double class: this must also win over the 640px media query's
+   `.section` padding further down the file. */
+.section.section-about {
+  padding: 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 54%) minmax(0, 46%);
+  min-height: 640px;
+}
+
+/* Vertically centered; the left padding lines the text up with the
+   rest of the site's 1080px wrap. */
+.about-copy {
+  align-self: center;
+  padding: 4.5rem 3rem 5rem max(1.25rem, calc((100vw - 1080px) / 2 + 1.25rem));
+}
+
+.about-backdrop {
+  position: relative;
+  overflow: hidden;
+  min-height: 640px;
+}
+
+/* The picture is taken out of flow so the image's intrinsic 3:4 height
+   never sizes the grid row — the row height comes from the 640px
+   minimum and the text, and the picture simply fills its cell. */
+.about-backdrop picture {
+  position: absolute;
+  inset: 0;
+}
+
+.about-backdrop picture,
+.about-backdrop img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+/* The divider after About slides up one wave height over the section,
+   hiding the backdrop's bottom edge behind it. Its background is
+   transparent (not the usual pearl): the section's pearl shows through
+   on the left, and on the right the figure shows through above the
+   wave curve — the figure's green is the same #0c3b2e as the wave, so
+   the person runs straight into the waves with no pearl gap and no
+   hard bottom edge. */
+.about-wave {
+  position: relative;
+  z-index: 1;
+  margin-top: -64px;
+  background: transparent;
+}
+
+@media (max-width: 760px) {
+  /* Ghost: the figure becomes the section's background. The backdrop
+     covers the whole section behind the text, washed out, with a pearl
+     scrim that is clearest at the top so the face peeks out above the
+     heading. The copy sits above it on its own layer. */
+  .section-about {
+    position: relative;
+  }
+
+  /* One column: the copy is the only in-flow child now. */
+  .about-grid {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .about-copy {
+    position: relative;
+    z-index: 1;
+    padding: 17.5rem 1.25rem 5rem;
+  }
+
+  .about-backdrop {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+    height: auto;
+  }
+
+  .about-backdrop img {
+    opacity: 0.38;
+  }
+
+  .about-backdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(250, 247, 242, 0) 0%,
+      rgba(250, 247, 242, 0.15) 26%,
+      rgba(250, 247, 242, 0.75) 40%,
+      rgba(250, 247, 242, 0.93) 48%,
+      rgba(250, 247, 242, 0.93) 100%
+    );
+  }
+
+  .about-wave {
+    margin-top: 0;
+  }
 }
 
 .contact-links {
@@ -487,6 +666,46 @@ button:focus-visible {
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1.5rem;
+}
+
+/* Contact card: the bold card treatment — the section stays dark green,
+   the content sits on a solid pearl card over it. */
+.contact-card {
+  background: var(--pearl);
+  color: var(--ink);
+  border-radius: 20px;
+  padding: clamp(1.75rem, 5vw, 2.5rem) clamp(1.25rem, 5vw, 2rem);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+.contact-card h2 {
+  color: var(--green);
+}
+
+/* Icon links: a round green button with a pearl mark, on the pearl card.
+   The mark follows the destination — envelope for email, brand marks
+   for GitHub, LinkedIn and WhatsApp. */
+.contact-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--pearl);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.contact-icon:hover {
+  background: var(--green-light);
+  transform: translateY(-2px);
+}
+
+.contact-icon svg {
+  display: block;
 }
 
 .contact-empty {
@@ -554,11 +773,6 @@ html.js .reveal.in-view {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  .wave {
-    animation: none;
-    will-change: auto;
   }
 
   .carousel.is-js .carousel-track,
