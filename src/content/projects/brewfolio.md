@@ -1,8 +1,8 @@
 ---
 title: Brewfolio
 titleId: Brewfolio
-description: A website template for food and beverage profile businesses.
-descriptionId: Website profil bisnis untuk usaha kuliner.
+description: "A warm, ready-made website for a food or drink business: menu, story, and orders straight to WhatsApp."
+descriptionId: "Website siap pakai yang hangat untuk usaha kuliner: menu, cerita, dan pesanan langsung ke WhatsApp."
 live: https://babelvonbritton.github.io/brewfolio/en/
 image: projects/brewfolio.jpg
 featured: true
@@ -10,5 +10,5 @@ order: 6
 ---
 
 Brewfolio is a template for a culinary business profile page: menu, story,
-and a single-item WhatsApp order link, in Indonesian and English, built as
-static output with CI and GitHub Pages deployment.
+and orders that arrive as one WhatsApp message, in Indonesian and English.
+Put in your own photos and prices, and it is ready to publish.

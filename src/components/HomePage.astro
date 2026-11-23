@@ -140,7 +140,7 @@ const contactLinks = [
                 <h3>{lang === 'en' ? p.data.title : p.data.titleId}</h3>
                 <p>{lang === 'en' ? p.data.description : p.data.descriptionId}</p>
                 <div class="tags">
-                  {p.data.tags.map((tag) => (
+                  {(lang === 'en' ? p.data.tags : p.data.tagsId).map((tag) => (
                     <span class="tag">{tag}</span>
                   ))}
                 </div>

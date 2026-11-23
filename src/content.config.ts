@@ -12,6 +12,9 @@ const projects = defineCollection({
     description: z.string(),
     descriptionId: z.string(),
     tags: z.array(z.string()).default([]),
+    // Same tags in Indonesian, in the same order. The Indonesian cards
+    // render this list; keep the two lists the same length.
+    tagsId: z.array(z.string()).default([]),
     live: z.string().optional(),
     repo: z.string().optional(),
     // Optional screenshot: path of a file under public/ (e.g. projects/eigakan.png),
