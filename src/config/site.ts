@@ -27,8 +27,8 @@ export const COPY = {
     navAbout: 'About',
     navContact: 'Contact',
     heroEyebrow: 'Alzam A. — IT Enthusiast',
-    heroCtaProjects: 'See what I\'ve built!',
-    heroCtaContact: 'Get in touch or hit the Chat Bot!',
+    heroCtaProjects: 'Explore projects',
+    heroCtaContact: 'Discuss a project',
     aboutHeading: 'About',
     aboutBody: [
       'I\'ve spent around four years working in the IT field. These days, I focus on turning ideas into practical websites and applications that people can actually use.',
@@ -47,8 +47,8 @@ export const COPY = {
     navAbout: 'Tentang',
     navContact: 'Kontak',
     heroEyebrow: 'Alzam A. — Petualang dunia IT',
-    heroCtaProjects: 'Lihat yang saya kerjakan disini!',
-    heroCtaContact: 'Kontak saya atau melalui Chat Bot di pojok layar ~',
+    heroCtaProjects: 'Lihat-lihat proyek disini',
+    heroCtaContact: 'Diskusi proyek kesini',
     aboutHeading: 'Tentang',
     aboutBody: [
       'Saya telah berkecimpung di bidang IT selama kurang lebih empat tahun. Saat ini, saya berfokus membangun berbagai aplikasi dan website yang berangkat dari ide sederhana menjadi sesuatu yang benar-benar bisa digunakan.',
