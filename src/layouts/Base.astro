@@ -44,9 +44,30 @@ const year = new Date().getFullYear();
           />
         </a>
         <nav class="site-nav" aria-label="Main">
-          <a href="#projects">{t.navProjects}</a>
-          <a href="#about">{t.navAbout}</a>
-          <a href="#contact">{t.navContact}</a>
+          <button
+            class="menu-button"
+            type="button"
+            popovertarget="site-menu"
+            popovertargetaction="toggle"
+            aria-controls="site-menu"
+            aria-expanded="false"
+            aria-label="Menu"
+          >
+            <svg class="icon-open" aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="4" y1="7" x2="20" y2="7" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="17" x2="20" y2="17" />
+            </svg>
+            <svg class="icon-close" aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
+          </button>
+          <ul id="site-menu" class="site-menu" popover="auto">
+            <li><a href="#projects">{t.navProjects}</a></li>
+            <li><a href="#about">{t.navAbout}</a></li>
+            <li><a href="#contact">{t.navContact}</a></li>
+          </ul>
         </nav>
         <div class="lang-switch" aria-label="Language">
           <a href={base} class={lang === 'en' ? 'active' : ''}>EN</a>
@@ -67,5 +88,79 @@ const year = new Date().getFullYear();
     </footer>
 
     <ChatWidget lang={lang} />
+
+    <script is:inline>
+      (function () {
+        var header = document.querySelector('.site-header');
+        var menu = document.getElementById('site-menu');
+        var button = header.querySelector('.menu-button');
+        if (!header || !menu || !button) return;
+        var supportsPopover = Object.hasOwn(HTMLElement.prototype, 'popover');
+        var wideQuery = window.matchMedia('(min-width: 641px)');
+
+        // Syncs the button state with whether the menu is open.
+        function setButtonState(open) {
+          button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        // Closes the menu in the native popover path and in the fallback path.
+        function closeMenu() {
+          if (supportsPopover) {
+            if (menu.matches(':popover-open')) menu.hidePopover();
+          } else {
+            menu.classList.remove('is-open');
+          }
+          setButtonState(false);
+        }
+
+        // Picks the inline layout on wide screens, the popover menu on narrow ones.
+        function syncLayout() {
+          var wasOpen = supportsPopover
+            ? menu.matches(':popover-open')
+            : menu.classList.contains('is-open');
+          if (wideQuery.matches) {
+            header.classList.add('is-wide');
+            if (supportsPopover) menu.removeAttribute('popover');
+            closeMenu();
+            return;
+          }
+          header.classList.remove('is-wide');
+          if (supportsPopover) {
+            menu.setAttribute('popover', 'auto');
+            if (wasOpen) menu.showPopover();
+          } else if (wasOpen) {
+            menu.classList.add('is-open');
+          }
+          setButtonState(wasOpen);
+        }
+
+        if (supportsPopover) {
+          menu.addEventListener('toggle', function () {
+            setButtonState(menu.matches(':popover-open'));
+          });
+          menu.addEventListener('click', function (event) {
+            if (event.target.closest('a')) closeMenu();
+          });
+        } else {
+          document.documentElement.classList.add('no-popover');
+          button.addEventListener('click', function () {
+            setButtonState(menu.classList.toggle('is-open'));
+          });
+          menu.addEventListener('click', function (event) {
+            if (event.target.closest('a')) closeMenu();
+          });
+          document.addEventListener('click', function (event) {
+            if (menu.classList.contains('is-open') && !event.target.closest('.site-header')) closeMenu();
+          });
+          document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') closeMenu();
+          });
+        }
+
+        syncLayout();
+        if (wideQuery.addEventListener) wideQuery.addEventListener('change', syncLayout);
+        else wideQuery.addListener(syncLayout);
+      })();
+    </script>
   </body>
 </html>

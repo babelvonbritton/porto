@@ -89,18 +89,115 @@ button:focus-visible {
 
 .site-nav {
   display: flex;
-  gap: 1.25rem;
+  align-items: center;
 }
 
-.site-nav a {
+.menu-button {
+  anchor-name: --menu-button;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  color: var(--green);
+}
+
+.menu-button .icon-close {
+  display: none;
+}
+
+.menu-button[aria-expanded="true"] .icon-open {
+  display: none;
+}
+
+.menu-button[aria-expanded="true"] .icon-close {
+  display: block;
+}
+
+.site-menu {
+  margin: 0;
+  padding: 0.5rem;
+  list-style: none;
+  background: var(--pearl);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 32px rgba(12, 59, 46, 0.16);
+  position: fixed;
+  inset: auto;
+  inset-block-start: 5rem;
+  inset-block-start: anchor(--menu-button bottom);
+  inset-inline-end: 1rem;
+  inline-size: min(80dvw, 16rem);
+  max-block-size: calc(100dvh - 6rem);
+  margin-block-start: 0.5rem;
+  overflow: auto;
+}
+
+.site-menu a {
+  display: block;
+  padding: 0.75rem 1rem;
   font-weight: 500;
   color: var(--ink);
+  white-space: nowrap;
+  border-radius: 0.5rem;
 }
 
-.site-nav a:hover {
+.site-menu a:hover {
   color: var(--green);
+  background: var(--tag-bg);
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+.no-popover .site-header:not(.is-wide) .site-menu {
+  display: none;
+}
+
+.no-popover .site-header:not(.is-wide) .site-menu.is-open {
+  display: block;
+}
+
+.site-header.is-wide .menu-button {
+  display: none;
+}
+
+.site-header.is-wide .site-menu {
+  position: static;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  inline-size: auto;
+  max-inline-size: none;
+  block-size: auto;
+  max-block-size: none;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.site-header.is-wide .site-menu::backdrop {
+  display: none;
+}
+
+.site-header.is-wide .site-menu a {
+  padding: 0;
+  border-radius: 0;
+}
+
+.site-header.is-wide .site-menu a:hover {
+  background: transparent;
 }
 
 .lang-switch {
@@ -686,14 +783,6 @@ button:focus-visible {
 
   .wave {
     height: 44px;
-  }
-
-  .site-nav {
-    gap: 0.6rem;
-  }
-
-  .site-nav a {
-    white-space: nowrap;
   }
 
   .header-inner {
