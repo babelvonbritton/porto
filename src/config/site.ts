@@ -21,6 +21,8 @@ export const COPY = {
     heroEyebrow: 'Alzam A. — IT Enthusiast',
     heroCtaProjects: 'Explore projects',
     heroCtaContact: 'Discuss a project',
+    heroIntro:
+      'Turning ideas into practical digital solutions through thoughtful design, engineering, and technology.',
     aboutHeading: 'About',
     aboutBody: [
       'I\'ve spent around four years working in the IT field. These days, I focus on turning ideas into practical websites and applications that people can actually use.',
@@ -41,6 +43,8 @@ export const COPY = {
     heroEyebrow: 'Alzam A. — Petualang dunia IT',
     heroCtaProjects: 'Lihat-lihat proyek disini',
     heroCtaContact: 'Diskusi proyek kesini',
+    heroIntro:
+      'Mengubah ide menjadi solusi digital yang praktis melalui desain, rekayasa, dan teknologi yang dirancang dengan matang.',
     aboutHeading: 'Tentang',
     aboutBody: [
       'Saya telah berkecimpung di bidang IT selama kurang lebih empat tahun. Saat ini, saya berfokus membangun berbagai aplikasi dan website yang berangkat dari ide sederhana menjadi sesuatu yang benar-benar bisa digunakan.',

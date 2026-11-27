@@ -1,5 +1,5 @@
 ---
-import { SITE_NAME, FOOTER_NAME, COPY, type Lang } from '../config/site';
+import { FOOTER_NAME, COPY, type Lang } from '../config/site';
 import ChatWidget from '../components/ChatWidget.astro';
 import '../styles/global.css';
 
@@ -35,7 +35,14 @@ const year = new Date().getFullYear();
   <body>
     <header class="site-header">
       <div class="wrap header-inner">
-        <a class="logo" href={lang === 'en' ? base : `${base}id/`}>{SITE_NAME}</a>
+        <a class="logo" href={lang === 'en' ? base : `${base}id/`}>
+          <img
+            src={`${base}images/techne-logo.png`}
+            alt="Techne"
+            width="1254"
+            height="622"
+          />
+        </a>
         <nav class="site-nav" aria-label="Main">
           <a href="#projects">{t.navProjects}</a>
           <a href="#about">{t.navAbout}</a>
