@@ -10,6 +10,7 @@
   --muted: #5d6c63;
   --line: #e3ddcf;
   --tag-bg: #e9efea;
+  --press: #dde4dd;
   --wave-muted: #a7b2aa;
   --serif: 'Fraunces', Georgia, serif;
   --sans: 'Inter', system-ui, sans-serif;
@@ -23,6 +24,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -105,22 +107,39 @@ button:focus-visible {
   background: transparent;
   color: var(--ink);
   cursor: pointer;
+  transition: background-color 0.2s ease, scale 0.15s ease;
 }
 
 .menu-button:hover {
   color: var(--green);
 }
 
-.menu-button .icon-close {
-  display: none;
+.menu-button:active {
+  background: var(--tag-bg);
+  scale: 0.97;
 }
 
-.menu-button[aria-expanded="true"] .icon-open {
-  display: none;
+.menu-button .menu-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
-.menu-button[aria-expanded="true"] .icon-close {
-  display: block;
+.menu-button .bar {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.menu-button[aria-expanded="true"] .bar-top {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.menu-button[aria-expanded="true"] .bar-mid {
+  opacity: 0;
+}
+
+.menu-button[aria-expanded="true"] .bar-bot {
+  transform: translateY(-5px) rotate(-45deg);
 }
 
 .site-menu {
@@ -140,6 +159,20 @@ button:focus-visible {
   max-block-size: calc(100dvh - 6rem);
   margin-block-start: 0.5rem;
   overflow: auto;
+  transform-origin: top right;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-menu:popover-open {
+    animation: menu-in 150ms ease-out both;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
 }
 
 .site-menu a {
@@ -156,6 +189,10 @@ button:focus-visible {
   background: var(--tag-bg);
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+.site-menu a:active {
+  background: var(--press);
 }
 
 .no-popover .site-header:not(.is-wide) .site-menu {
@@ -200,6 +237,11 @@ button:focus-visible {
   background: transparent;
 }
 
+.site-header.is-wide .site-menu a:active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .lang-switch {
   font-size: 0.85rem;
   color: var(--muted);
@@ -213,6 +255,10 @@ button:focus-visible {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+.lang-switch a:active {
+  color: var(--green);
 }
 
 .hero {
@@ -259,7 +305,11 @@ button:focus-visible {
   padding: 0.8rem 1.5rem;
   border-radius: 12px;
   font-weight: 600;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, scale 0.15s ease;
+}
+
+.btn:active {
+  scale: 0.97;
 }
 
 .btn-solid {
@@ -271,6 +321,10 @@ button:focus-visible {
   background: var(--green-light);
 }
 
+.btn-solid:active {
+  background: var(--green-2);
+}
+
 .btn-outline {
   border: 1.5px solid var(--green);
   color: var(--green);
@@ -280,6 +334,10 @@ button:focus-visible {
   background: var(--pearl-2);
 }
 
+.btn-outline:active {
+  background: var(--line);
+}
+
 .btn-pearl {
   background: var(--pearl);
   color: var(--green);
@@ -287,6 +345,10 @@ button:focus-visible {
 
 .btn-pearl:hover {
   background: #ffffff;
+}
+
+.btn-pearl:active {
+  background: var(--pearl-2);
 }
 
 .section {
@@ -443,11 +505,16 @@ button:focus-visible {
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, scale 0.15s ease;
 }
 
 .carousel-arrow:hover {
   background: #ffffff;
+}
+
+.carousel-arrow:active {
+  background: var(--press);
+  scale: 0.96;
 }
 
 .carousel-dots {
@@ -472,6 +539,10 @@ button:focus-visible {
 
 .carousel-dot.active {
   width: 26px;
+  opacity: 1;
+}
+
+.carousel-dot:active {
   opacity: 1;
 }
 
@@ -572,6 +643,10 @@ button:focus-visible {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+.card-links a:active {
+  text-decoration-thickness: 2px;
 }
 
 .earlier-work {
@@ -867,6 +942,11 @@ html.js .reveal.in-view {
   transform: translateY(-2px);
 }
 
+.chat-toggle:active {
+  background: var(--green-2);
+  transform: scale(0.96);
+}
+
 .chat-toggle:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: 3px;
@@ -911,5 +991,16 @@ html.js .reveal.in-view {
 @media (prefers-reduced-motion: reduce) {
   .chat-toggle {
     transition: none;
+  }
+
+  .menu-button,
+  .menu-button .bar,
+  .btn,
+  .carousel-arrow {
+    transition: none;
+  }
+
+  .site-menu:popover-open {
+    animation: none;
   }
 }

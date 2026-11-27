@@ -1,5 +1,9 @@
 
 
+.chat-widget {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .chat-window {
   width: min(22.5rem, calc(100vw - 2rem));
   height: min(32.5rem, 70dvh);
@@ -71,6 +75,10 @@
   color: var(--green);
 }
 
+.chat-lang button:active {
+  background: rgba(250, 247, 242, 0.15);
+}
+
 .chat-close {
   border: none;
   background: transparent;
@@ -84,6 +92,10 @@
 
 .chat-close:hover {
   background: rgba(250, 247, 242, 0.15);
+}
+
+.chat-close:active {
+  background: rgba(250, 247, 242, 0.3);
 }
 
 .chat-close svg {
@@ -231,10 +243,16 @@
   cursor: pointer;
   display: grid;
   place-items: center;
+  transition: background-color 0.2s ease, scale 0.15s ease;
 }
 
 .chat-send:hover:not(:disabled) {
   background: var(--green-light);
+}
+
+.chat-send:active:not(:disabled) {
+  background: var(--green-2);
+  scale: 0.96;
 }
 
 .chat-send:disabled {
@@ -285,10 +303,16 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   text-decoration: none;
+  transition: background-color 0.2s ease, scale 0.15s ease;
 }
 
 .chat-btn:hover {
   background: var(--green-light);
+}
+
+.chat-btn:active:not(:disabled) {
+  background: var(--green-2);
+  scale: 0.97;
 }
 
 .chat-btn:disabled {
@@ -304,6 +328,11 @@
 
 .chat-btn-ghost:hover {
   background: var(--tag-bg);
+}
+
+.chat-btn-ghost:active:not(:disabled) {
+  background: var(--press);
+  scale: 0.97;
 }
 
 .chat-confirm .chat-btn {
