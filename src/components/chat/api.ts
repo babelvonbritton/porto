@@ -1,9 +1,3 @@
-// API client for the contact endpoint (POST /api/contact).
-// One submission = one request. The request is sent as text/plain (the
-// body is still JSON) so the browser treats it as a CORS "simple
-// request": no preflight OPTIONS call, which halves the number of
-// Cloudflare Worker invocations per submission (free-tier request
-// budget). The Worker accepts text/plain and application/json alike.
 
 import type { ContactPayload } from './types';
 

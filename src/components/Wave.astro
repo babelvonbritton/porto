@@ -1,17 +1,4 @@
 ---
-// Two-tone divider: a solid SVG wave, no gradients.
-// Usage: wrap it in a div whose background is the PREVIOUS section's color
-// and pass the NEXT section's color as `fill`. The wave curve is the
-// boundary, so pearl flows into green (or green back into pearl) with no
-// hard line and no gradient anywhere.
-//
-// Endless ride: each SVG holds TWO copies of the same wave, one tile wide
-// each (viewBox 2880 = 2 x 1440), and the CSS slides the SVG from
-// translateX(-50%) to translateX(0), so the pattern rides to the right
-// forever. The loop is seamless because the path tiles: it starts and ends
-// at the same height with the same slope (the last control point of each
-// path is chosen so the end tangent matches the start tangent), so the
-// second copy is indistinguishable from the first at the loop point.
 interface Props {
   fill: string;
 }

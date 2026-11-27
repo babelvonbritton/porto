@@ -1,7 +1,3 @@
-// Email forwarding via Resend (plain HTTPS API, no SDK needed).
-// Sends a plain-text email only — no HTML part, so a crafted message
-// can never render as markup in the inbox. The only subrequest the
-// Worker makes (1 of the 50 allowed on the free tier).
 
 import type { ContactSubmission } from './validate.ts';
 
@@ -9,8 +5,6 @@ export interface MailConfig {
   apiKey: string;
   from: string;
   to: string;
-  // Override for local testing (point at a stub server). Defaults to
-  // the Resend API.
   apiUrl?: string;
 }
 
@@ -47,8 +41,6 @@ export async function sendContactEmail(
         to: [config.to],
         subject: `New message from ${data.name} — Porto contact`,
         text,
-        // Replying to the email answers the visitor directly, when
-        // they left an email address.
         ...(data.contactKind === 'email' ? { reply_to: data.contact } : {}),
       }),
       signal: controller.signal,

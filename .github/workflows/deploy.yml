@@ -1,9 +1,3 @@
-# Deploy Porto to GitHub Pages on every push to main.
-# No secrets needed: Pages uses the built-in GITHUB_TOKEN.
-# Custom domain setup: the site serves at https://porto.bvbritton.bond/
-# (domain root), so the base path is / and the CNAME file in public/
-# is published with the site. The matching DNS record is a CNAME
-# (porto -> <owner>.github.io, DNS-only) in the Cloudflare zone.
 name: Deploy to GitHub Pages
 
 on:
@@ -34,9 +28,6 @@ jobs:
         env:
           PUBLIC_SITE_URL: https://porto.bvbritton.bond
           PUBLIC_SITE_BASE: /
-          # Contact chat widget endpoint (set as the CONTACT_API_URL
-          # repository variable; empty until the Worker is deployed —
-          # the widget then shows a mailto fallback).
           PUBLIC_CONTACT_API_URL: ${{ vars.CONTACT_API_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:

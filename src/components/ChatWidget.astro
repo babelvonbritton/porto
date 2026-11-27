@@ -1,10 +1,4 @@
 ---
-// Floating contact chat widget. Renders the button and the chat window
-// shell; the interactive module (chat/widget.ts, with its CSS) loads
-// lazily on first open, so the widget costs the page nothing until a
-// visitor actually opens it. The window starts hidden; the loader
-// below opens it immediately on click, then hands control to the
-// widget once the module arrives.
 import type { Lang } from '../config/site';
 import { CONTACT } from '../config/site';
 
@@ -12,12 +6,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-// Public endpoint of the contact Worker (set as the CONTACT_API_URL
-// repository variable; empty until the Worker is deployed — the widget
-// then shows a mailto fallback instead of failing silently).
 const apiUrl = import.meta.env.PUBLIC_CONTACT_API_URL || '';
-// Widget stylesheet (public/chat-widget.css), base-aware. Passed to
-// the widget so it can inject the <link> on first open.
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const cssUrl = `${base}chat-widget.css`;
@@ -78,8 +67,6 @@ const cssUrl = `${base}chat-widget.css`;
 </div>
 
 <script>
-  // Tiny loader: only the toggle wiring lives here. The full widget
-  // (and its CSS) loads on first open.
   const root = document.querySelector('[data-chat-widget]');
   const toggle = root?.querySelector('[data-chat-toggle]');
   const win = root?.querySelector('[data-chat-window]');
@@ -99,8 +86,6 @@ const cssUrl = `${base}chat-widget.css`;
           });
         })
         .catch((err) => {
-          // The chunk failed to load (offline, blocked): say so plainly
-          // instead of leaving an empty window.
           console.error('Chat widget failed to load:', err);
           if (messages) {
             const note = document.createElement('div');
@@ -129,8 +114,6 @@ const cssUrl = `${base}chat-widget.css`;
       const widget = await loadWidget();
       widget.toggle();
     } catch {
-      // The module never arrived: the toggle still closes the shell,
-      // so the visitor is never stuck with an open empty window.
       if (!wasHidden && win) {
         win.hidden = true;
         root?.classList.remove('is-open');

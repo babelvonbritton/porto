@@ -1,25 +1,17 @@
-// ── Porto — every custom thing lives here. ─────────────────────────────
-// Change the values in this file and the whole site follows. Nothing else
-// needs editing for a name change, a tagline change, or contact details.
-//
 export const SITE_NAME = 'Techne';
 
-// Footer copyright holder name
 export const FOOTER_NAME = 'Alzam A';
 
-// Hero tagline
 export const TAGLINE = {
   en: 'Your imagination, one step closer to reality!',
   id: 'Berawal dari ide sederhana menjadi sesuatu yang nyata!',
 } as const;
 
-// Projects section heading
 export const PROJECTS_HEADING = {
   en: 'Things I\'ve Brought to Life.',
   id: 'Beberapa karya yang telah saya bangun.',
 } as const;
 
-// Navigation + section copy
 export const COPY = {
   en: {
     navHome: 'Home',
@@ -63,15 +55,10 @@ export const COPY = {
   },
 } as const;
 
-// ── Contact details ────────────────────────────────────────────────────
-// Leave a field empty and its link is simply not rendered; when every
-// field is empty the contact section shows the placeholder line instead.
-// No fake addresses, no placeholder links.
 export const CONTACT = {
   email: 'alzamakbar2510@gmail.com',
   github: 'https://github.com/babelvonbritton',
   linkedin: '',
-  // whatsapp: '',
 } as const;
 
 export type Lang = keyof typeof COPY;

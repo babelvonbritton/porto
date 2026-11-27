@@ -1,9 +1,3 @@
-// The predefined finite-state conversation flow (not AI-powered).
-// Pure logic: no DOM access. The widget drives it and renders the
-// messages it returns. States:
-//   greeting -> awaitingMessage -> awaitingName -> awaitingContact
-//   -> awaitingCountryCode (for local phone numbers)
-//   -> confirming -> submitting -> done | error
 
 import type { ContactKind, ContactPayload, FlowState, ValidationResult } from './types';
 import {
@@ -16,18 +10,13 @@ import {
 } from './validation';
 
 export interface FlowStep {
-  // Bot message keys (into locales.ts) to show after this transition.
   botKeys: string[];
-  // The input the widget should show next: 'text' (free typing),
-  // 'confirm' (Send / Start over buttons), or 'none'.
   input: 'text' | 'confirm' | 'none';
-  // Placeholder key for the text input, when input is 'text'.
   placeholderKey?:
     | 'placeholderMessage'
     | 'placeholderName'
     | 'placeholderContact'
     | 'placeholderCountryCode';
-  // Error key to show when the user's input failed validation.
   errorKey?: string;
 }
 

@@ -1,7 +1,3 @@
-// Validation + sanitization for the contact submission (backend).
-// Mirrors the frontend rules in src/components/chat/validation.ts —
-// the frontend checks are for fast feedback only; these are the ones
-// that count. Never trust the client: every field is re-checked here.
 
 export type ContactKind = 'email' | 'whatsapp';
 
@@ -79,8 +75,6 @@ export function validateSubmission(raw: unknown): ValidationOutcome {
     errors.push({ field: 'contact', code: 'invalid' });
   }
 
-  // Honeypot and timing are handled by the caller (index.ts) before
-  // this runs; here they are only normalized, never trusted.
   const website = typeof body.website === 'string' ? body.website : '';
   const openedAt = typeof body.openedAt === 'number' ? body.openedAt : 0;
 

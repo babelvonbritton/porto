@@ -1,15 +1,3 @@
-// The contact chat widget: DOM wiring around the ConversationFlow.
-// Owns bubbles, timestamps, typing indicator, language switching,
-// focus management, and the submission lifecycle. No business rules
-// live here — validation is in validation.ts, the state machine in
-// flow.ts, strings in locales.ts, transport in api.ts.
-//
-// This module is loaded lazily (dynamic import on first open), so its
-// code only downloads when a visitor actually opens the chat. Its
-// stylesheet is loaded the same way: the constructor injects a <link>
-// to public/chat-widget.css (Astro hoists imported stylesheets into
-// the page head, so an import here would ship the CSS with every
-// page load).
 
 import { ConversationFlow, type FlowStep } from './flow';
 import { ApiError, ContactApiClient } from './api';
@@ -17,15 +5,9 @@ import { getStrings, type ChatStrings } from './locales';
 import type { Lang } from './types';
 
 export interface WidgetOptions {
-  // Page language (from the Astro prop): the visitor's chosen language.
   lang: Lang;
-  // Contact API URL (PUBLIC_CONTACT_API_URL). '' when not configured —
-  // the widget still opens and collects input, but submitting shows the
-  // not-configured message with a mailto fallback.
   apiUrl: string;
-  // Contact email for the not-configured fallback.
   email: string;
-  // URL of public/chat-widget.css (base-aware, from the Astro prop).
   cssUrl: string;
 }
 
@@ -119,8 +101,7 @@ export class ChatWidget {
   }
 
   // Injects the widget stylesheet on first open (once per page).
-  // Kept out of the module graph so Astro doesn't hoist it into the
-  // page head — see the header comment.
+  // Kept out of the module graph so Astro doesn't hoist it into the page head.
   private loadStylesheet(cssUrl: string): void {
     if (!cssUrl) return;
     if (document.querySelector(`link[href="${cssUrl}"]`)) return;
@@ -165,16 +146,12 @@ export class ChatWidget {
     this.lang = next;
     this.strings = getStrings(next);
     this.renderChrome();
-    // Nothing typed yet: restart the greeting in the new language so
-    // the visitor never reads a half-translated conversation. History
-    // is kept once the visitor has said something.
     if (this.flow.message === '' && this.flow.name === '') {
       this.messagesEl.innerHTML = '';
       void this.applyStep(this.flow.reset());
     }
   }
 
-  // -- Conversation driving ------------------------------------------
 
   private async handleTextSubmit(): Promise<void> {
     if (this.sending || this.busy) return;
@@ -191,7 +168,7 @@ export class ChatWidget {
   }
 
   private async handleConfirmSend(): Promise<void> {
-    if (this.sending) return; // Duplicate-submission guard.
+    if (this.sending) return;
     this.sending = true;
     this.setFormEnabled(false);
     this.confirmBox.hidden = true;
@@ -222,8 +199,6 @@ export class ChatWidget {
           { label: this.strings.startOver, onClick: () => this.handleStartOver() },
         ]);
       }
-      // Land keyboard and screen-reader focus on the recovery actions
-      // (Retry first) instead of leaving it on the disabled send button.
       this.focusFirstAction();
     } finally {
       this.sending = false;
@@ -288,7 +263,6 @@ export class ChatWidget {
     void this.applyStep(this.flow.reset());
   }
 
-  // -- Rendering ------------------------------------------------------
 
   private async applyStep(step: FlowStep): Promise<void> {
     if (step.botKeys.length > 0) {

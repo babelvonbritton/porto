@@ -1,6 +1,3 @@
-// All user-facing strings for the contact chat widget, in both
-// languages. Written natively per language — not word-for-word
-// translations — following the site's copy convention in site.ts.
 
 import type { Lang } from './types';
 

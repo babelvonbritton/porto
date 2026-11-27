@@ -1,11 +1,4 @@
-/* Contact chat widget. Lives in public/ (not imported by the widget
-   module) because Astro hoists imported stylesheets into the page
-   head — this file is only fetched when the widget injects its <link>
-   on first open, so none of it reaches the page before then. Uses the
-   site's design tokens — pearl, solid green, Fraunces/Inter — and
-   nothing else. */
 
-/* -- Floating button + window -------------------------------------- */
 
 .chat-window {
   width: min(22.5rem, calc(100vw - 2rem));
@@ -23,7 +16,6 @@
   display: none;
 }
 
-/* -- Header --------------------------------------------------------- */
 
 .chat-header {
   display: flex;
@@ -99,7 +91,6 @@
   height: 1.125rem;
 }
 
-/* -- Messages ------------------------------------------------------- */
 
 .chat-messages {
   flex: 1;
@@ -158,7 +149,6 @@
   color: var(--muted);
 }
 
-/* Typing indicator: three dots. */
 .chat-typing {
   display: flex;
   gap: 0.25rem;
@@ -195,7 +185,6 @@
   }
 }
 
-/* -- Input + actions ------------------------------------------------- */
 
 .chat-form {
   display: flex;
@@ -258,8 +247,6 @@
   height: 1.125rem;
 }
 
-/* Honeypot: off-screen, never display:none (bots still fill it),
-   unreachable by keyboard (tabindex -1) and screen readers. */
 .chat-honeypot {
   position: absolute;
   left: -9999px;
@@ -323,7 +310,6 @@
   flex: 1;
 }
 
-/* -- Small screens + reduced motion ---------------------------------- */
 
 @media (max-width: 480px) {
   .chat-window {

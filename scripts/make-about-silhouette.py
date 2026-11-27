@@ -28,16 +28,14 @@ from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
-GREEN = (12, 59, 46)  # --green
-PEARL = (250, 247, 242)  # --pearl
-# Luminance ramp: at or below LO the pixel is solid green, at or above
-# HI it is solid pearl, with a smooth step between (keeps hair wisps).
+GREEN = (12, 59, 46)
+PEARL = (250, 247, 242)
 RAMP_LO = 8
 RAMP_HI = 40
-TOP_FADE = 0.22  # top fade spans 22% of the image height
-LEFT_FADE = 0.28  # left fade spans 28% of the image width
-SOURCE_BLUR = 1  # soften the source before the ramp (kills speckle)
-MASK_BLUR = 2  # soften the cutout edge mask
+TOP_FADE = 0.22
+LEFT_FADE = 0.28
+SOURCE_BLUR = 1
+MASK_BLUR = 2
 
 
 def smoothstep(t):
@@ -91,7 +89,6 @@ def radial_window(width, height):
     the corner and edge vignette to pearl."""
     cx, cy = width * 0.50, height * 0.48
     rx, ry = width * 0.40, height * 0.48
-    # The window is smooth, so build it small and scale it up.
     sw, sh = width // 4, height // 4
     win = Image.new("L", (sw, sh))
     px = win.load()
@@ -125,11 +122,8 @@ def erase_stray_hair(mask):
     patch = Image.new("L", mask.size, 0)
     draw = ImageDraw.Draw(patch)
     draw.ellipse([135, 141, 385, 491], fill=255)
-    # The strand's top tip runs further right than the ellipse reaches,
-    # so a thick diagonal stroke follows it to the head.
     draw.line([(360, 165), (195, 465)], fill=255, width=100)
     patch = patch.filter(ImageFilter.GaussianBlur(15))
-    # Inside the patch the mask goes to 0 (pearl); outside it is kept.
     return ImageChops.darker(mask, ImageChops.invert(patch))
 
 
@@ -137,8 +131,6 @@ def main(source):
     root = Path(__file__).resolve().parent.parent
     gray = Image.open(source).convert("L")
     gray = gray.filter(ImageFilter.GaussianBlur(SOURCE_BLUR))
-    # composite(image1, image2, mask): mask white shows image1 (the
-    # cutout), mask black shows image2 (pearl at the faded edges).
     mask = erase_stray_hair(
         crush_mask(
             ImageChops.darker(edge_fade_mask(*gray.size), radial_window(*gray.size))

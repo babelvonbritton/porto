@@ -1,7 +1,3 @@
-/* Porto — pearl white + solid dark green, luxurious but clean.
-   Design rule: no gradients on menus or buttons. Buttons are solid
-   colors throughout; the only visual flourish is the SVG wave divider
-   between two-tone sections (also solid, no gradient). */
 
 :root {
   --pearl: #faf7f2;
@@ -63,7 +59,6 @@ button:focus-visible {
   max-width: 720px;
 }
 
-/* ── Header: pearl, hairline border, solid colors only ── */
 .site-header {
   position: sticky;
   top: 0;
@@ -120,7 +115,6 @@ button:focus-visible {
   text-underline-offset: 4px;
 }
 
-/* ── Hero: pearl ground, solid dark green type ── */
 .hero {
   background: var(--pearl);
   padding: 5.5rem 0 4.5rem;
@@ -151,7 +145,6 @@ button:focus-visible {
   gap: 0.75rem;
 }
 
-/* ── Buttons: solid colors only, never gradients ── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -188,7 +181,6 @@ button:focus-visible {
   background: #ffffff;
 }
 
-/* ── Sections + wave dividers ── */
 .section {
   padding: 4.5rem 0 5rem;
   scroll-margin-top: 90px;
@@ -238,9 +230,6 @@ button:focus-visible {
   background: var(--green);
 }
 
-/* Two tiles wide (see Wave.astro): the ride slides one tile to the right
-   and loops, so the pattern never runs out. Static by default; the ride
-   only runs where motion is welcome (see below). */
 .wave {
   display: block;
   width: 200%;
@@ -252,9 +241,6 @@ button:focus-visible {
   inset: 0 auto auto 0;
 }
 
-/* Linear timing is what makes the loop seamless: any easing would make
-   the wave speed up and slow down once per cycle. The muted layer rides
-   slower for parallax and starts mid-cycle so the layers never align. */
 @media (prefers-reduced-motion: no-preference) {
   .wave {
     animation: wave-ride 14s linear infinite;
@@ -277,7 +263,6 @@ button:focus-visible {
   }
 }
 
-/* ── Projects carousel: one slide centered, neighbors peeking ── */
 .carousel {
   margin-top: 0.5rem;
 }
@@ -296,7 +281,6 @@ button:focus-visible {
   display: flex;
   align-items: stretch;
   gap: 24px;
-  /* Centers the first and last slides in the no-JS scroll fallback. */
   padding-inline: calc(50% - min(340px, 44vw));
 }
 
@@ -383,7 +367,6 @@ button:focus-visible {
   opacity: 1;
 }
 
-/* ── Project cards: pearl cards on the green section ── */
 
 .card {
   background: var(--card);
@@ -396,8 +379,6 @@ button:focus-visible {
   overflow: hidden;
 }
 
-/* Project screenshot (optional): bleeds to the card edges and crops to
-   16:9, so source files don't need exact cropping — just a similar ratio. */
 .slide-media {
   position: relative;
   width: calc(100% + 3rem);
@@ -414,8 +395,6 @@ button:focus-visible {
   object-fit: cover;
 }
 
-/* Visible identity mark on every project image: subtle, bottom-left
-   (the build-stamped mark sits bottom-right). Survives screenshots. */
 .image-mark {
   position: absolute;
   left: 10px;
@@ -487,10 +466,6 @@ button:focus-visible {
   text-underline-offset: 4px;
 }
 
-/* ── Earlier work: quiet text rows under the carousel ── */
-/* Deliberately plainer than the cards: a superseded project is
-   lineage, not a second showcase. Same green ground and pearl text
-   as the section, separated by one hairline. */
 .earlier-work {
   margin-top: 3rem;
   padding-top: 1.75rem;
@@ -538,24 +513,11 @@ button:focus-visible {
   text-underline-offset: 4px;
 }
 
-/* ── About + contact ── */
 .section-pearl p {
   color: #33413a;
   line-height: 1.75;
 }
 
-/* ── About: silhouette backdrop ── */
-/* Two columns, magazine style: text on the left, the figure on the
-   right, full-bleed to the viewport edge. The row is at least 640px
-   tall no matter how the text wraps, so the figure always shows head,
-   shoulders and upper jacket the same way at every window size — the
-   framing no longer depends on the text height. The photo is a pure
-   cutout — only the dark-green person, background gone to pearl (see
-   scripts/make-about-silhouette.py) — so the picture has no border.
-   The wave divider slides up over the section's bottom 64px, so the
-   figure's bottom line never shows: the wave is its bottom edge. */
-/* Double class: this must also win over the 640px media query's
-   `.section` padding further down the file. */
 .section.section-about {
   padding: 0;
 }
@@ -566,8 +528,6 @@ button:focus-visible {
   min-height: 640px;
 }
 
-/* Vertically centered; the left padding lines the text up with the
-   rest of the site's 1080px wrap. */
 .about-copy {
   align-self: center;
   padding: 4.5rem 3rem 5rem max(1.25rem, calc((100vw - 1080px) / 2 + 1.25rem));
@@ -579,9 +539,6 @@ button:focus-visible {
   min-height: 640px;
 }
 
-/* The picture is taken out of flow so the image's intrinsic 3:4 height
-   never sizes the grid row — the row height comes from the 640px
-   minimum and the text, and the picture simply fills its cell. */
 .about-backdrop picture {
   position: absolute;
   inset: 0;
@@ -596,13 +553,6 @@ button:focus-visible {
   object-position: center 20%;
 }
 
-/* The divider after About slides up one wave height over the section,
-   hiding the backdrop's bottom edge behind it. Its background is
-   transparent (not the usual pearl): the section's pearl shows through
-   on the left, and on the right the figure shows through above the
-   wave curve — the figure's green is the same #0c3b2e as the wave, so
-   the person runs straight into the waves with no pearl gap and no
-   hard bottom edge. */
 .about-wave {
   position: relative;
   z-index: 1;
@@ -611,15 +561,10 @@ button:focus-visible {
 }
 
 @media (max-width: 760px) {
-  /* Ghost: the figure becomes the section's background. The backdrop
-     covers the whole section behind the text, washed out, with a pearl
-     scrim that is clearest at the top so the face peeks out above the
-     heading. The copy sits above it on its own layer. */
   .section-about {
     position: relative;
   }
 
-  /* One column: the copy is the only in-flow child now. */
   .about-grid {
     grid-template-columns: 1fr;
     min-height: 0;
@@ -668,8 +613,6 @@ button:focus-visible {
   margin-top: 1.5rem;
 }
 
-/* Contact card: the bold card treatment — the section stays dark green,
-   the content sits on a solid pearl card over it. */
 .contact-card {
   background: var(--pearl);
   color: var(--ink);
@@ -682,9 +625,6 @@ button:focus-visible {
   color: var(--green);
 }
 
-/* Icon links: a round green button with a pearl mark, on the pearl card.
-   The mark follows the destination — envelope for email, brand marks
-   for GitHub, LinkedIn and WhatsApp. */
 .contact-icon {
   display: inline-flex;
   align-items: center;
@@ -712,7 +652,6 @@ button:focus-visible {
   opacity: 0.75;
 }
 
-/* ── Footer ── */
 .site-footer {
   background: var(--green-2);
   color: #c9d6cc;
@@ -747,9 +686,6 @@ button:focus-visible {
   }
 }
 
-/* ── Reveal on scroll: text and content only. Backgrounds and waves
-   never get .reveal, so they stay put. The hidden state applies only
-   when JS runs (html.js); without JS everything is visible. ── */
 html.js .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -781,11 +717,6 @@ html.js .reveal.in-view {
   }
 }
 
-/* Contact chat widget button. Lives in the main stylesheet — not the
-   lazily loaded widget CSS — so the button renders in place (fixed,
-   bottom-right) before the widget module loads. The window and
-   everything inside it is styled by chat-widget.css, which only
-   downloads when a visitor opens the chat. */
 .chat-widget {
   position: fixed;
   right: 1rem;

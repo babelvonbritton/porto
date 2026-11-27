@@ -10,10 +10,8 @@ interface Props {
 }
 const { lang, title, description } = Astro.props;
 const t = COPY[lang];
-// BASE_URL has no trailing slash ("/porto"), so normalize before joining.
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-// Language switcher targets: EN lives at the root, ID under /id/.
 const year = new Date().getFullYear();
 ---
 <!doctype html>
@@ -30,8 +28,6 @@ const year = new Date().getFullYear();
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <!-- Runs before first paint: gates the reveal animations so content
-         is never hidden when JS is unavailable. -->
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
